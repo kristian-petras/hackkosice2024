@@ -42,19 +42,16 @@ export default function NoteGrid() {
         const url = 'http://127.0.0.1:8000/playComposition';
         const origin = 'http://127.0.0.1:3000'; // Client origin
 
+
+        const pointsJson = selectedTones.map((tone) => {
+            const [note, octa, color] = tone.className.split("-");
+
+            return { "note": note, "octave": parseInt(octa), "duration": 100 };
+        });
+
+
         const data = {
-            points: [
-                {
-                    note: 'C',
-                    octave: 4,
-                    duration: 500
-                },
-                {
-                    note: 'E',
-                    octave: 4,
-                    duration: 500
-                },
-            ]
+            points: pointsJson
         };
 
         fetch(url, {
@@ -69,6 +66,7 @@ export default function NoteGrid() {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
+                console.log(pointsJson);
                 return response.json();
             })
             .then(data => {
