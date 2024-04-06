@@ -1,6 +1,10 @@
 #include <buzzer.h>
-#include <stdio.h>
+#include <Arduino.h>
 
-void hello_world() {
-    printf("Hello, World!\n");
+void init_buzzer() {
+    pinMode(BUZZER, OUTPUT);
+}
+
+void tone(int frequency, int duration) {
+    tone(BUZZER, frequency, duration);
 }

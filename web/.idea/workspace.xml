@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="21a5e67a-8db7-4b23-bc1d-fbeb4599d576" name="Changes" comment="init: Composer added">
+    <list default="true" id="21a5e67a-8db7-4b23-bc1d-fbeb4599d576" name="Changes" comment="feature: submit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/NoteGrid.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/NoteGrid.jsx" afterDir="false" />
     </list>
@@ -20,6 +20,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -72,7 +73,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1712410728241</updated>
-      <workItem from="1712410731171" duration="23471000" />
+      <workItem from="1712410731171" duration="26031000" />
     </task>
     <task id="LOCAL-00001" summary="init: basic web app">
       <created>1712423071382</created>
@@ -88,7 +89,28 @@
       <option name="project" value="LOCAL" />
       <updated>1712433379311</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="feat: test submit">
+      <created>1712439238914</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1712439238914</updated>
+    </task>
+    <task id="LOCAL-00004" summary="fix: 422">
+      <created>1712441028044</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1712441028044</updated>
+    </task>
+    <task id="LOCAL-00005" summary="feature: submit">
+      <created>1712441326794</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1712441326794</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -108,6 +130,9 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="init: basic web app" />
     <MESSAGE value="init: Composer added" />
-    <option name="LAST_COMMIT_MESSAGE" value="init: Composer added" />
+    <MESSAGE value="feat: test submit" />
+    <MESSAGE value="fix: 422" />
+    <MESSAGE value="feature: submit" />
+    <option name="LAST_COMMIT_MESSAGE" value="feature: submit" />
   </component>
 </project>

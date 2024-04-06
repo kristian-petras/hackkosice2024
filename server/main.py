@@ -7,6 +7,8 @@ from uuid import UUID, uuid4 as getId
 from pydantic import BaseModel
 from typing import List
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi import Request
+from wav import extract_frequencies
 
 NOTES = {
     "C": [16.35, 32.7, 65.41, 130.81, 261.63, 523.25, 1046.5, 2093, 4186, ],
@@ -49,6 +51,8 @@ class PointModel(BaseModel):
 class CompositionModel(BaseModel):
     points: List[PointModel]
 
+
+
 # ser = serial.Serial('/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_0670FF485251667187121236-if02', 9600)
 # ser = serial.Serial('/dev/ttyACM0', 9600)
 app = FastAPI()
@@ -72,19 +76,23 @@ def pointFromModel(model: PointModel) -> SoundPoint:
 
     return soundPoint
 
-@app.post("/playComposition/")
-async def submit_composition(model: CompositionModel):
-    points = list(map(pointFromModel, model.points))
-    composition = Composition(points)
+class CompositionRequest(BaseModel):
+    points: list
 
-    print(composition)
+@app.post("/playComposition")
+async def play_composition(composition: Request):
+    json_data = await composition.json()
+    print(json_data) 
+    return await composition.json()
 
 @app.post("/uploadfile/")
 async def create_upload_file(file: UploadFile | None = None):
     if not file:
         return {"message": "No upload file sent"}
 
-    print(file.filename)
+    freqs = extract_frequencies(file.file)
+    print(freqs)
+    return { "filename": file.filename }
 
     
 
