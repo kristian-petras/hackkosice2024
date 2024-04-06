@@ -1,10 +1,11 @@
 #include <Arduino.h>
-
+#include <buzzer.h>
 
 void setup() {
-  // put your setup code here, to run once:
+    hello_world();
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
+void loop()
+{
+    // put your main code here, to run repeatedly:
 }
