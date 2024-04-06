@@ -25,12 +25,19 @@ void turn_on_leds() {
     digitalWrite(_D4_INVERTED, LOW);
 }
 
+void play_buzzer(int delay_ms) {
+    analogWrite(3, 500);
+    delay(delay_ms);
+    analogWrite(3, LOW);
+}
+
 void setup() {
     pinMode(_D1_INVERTED, OUTPUT);
     pinMode(_D2_INVERTED, OUTPUT);
     pinMode(_D3_INVERTED, OUTPUT);
     pinMode(_D4_INVERTED, OUTPUT);
     pinMode(BUTTON_1, INPUT_PULLUP);
+    pinMode(BUZZER, OUTPUT);
 
     button = new DebounceEvent(BUTTON_1, BUTTON_PUSHBUTTON | BUTTON_DEFAULT_HIGH | BUTTON_SET_PULLUP, 50, 500);
     turn_off_leds();
@@ -40,6 +47,7 @@ void loop() {
     if (unsigned int event = button->loop()) {
         if (event == EVENT_RELEASED) {
             turn_on_leds();
+            play_buzzer(1000);
         }
     }
 }
