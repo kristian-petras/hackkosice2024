@@ -3,7 +3,6 @@
 
 #include <Arduino.h>
 
-
 const int LED_4 = 13;
 const int _D1_INVERTED = 13;
 const int _D2_INVERTED = 12;
@@ -15,12 +14,5 @@ const int BUTTON_2 = A2;
 const int BUTTON_3 = A3;
 
 const int BUZZER = 3;
-
-const bool SWAP_SHIFT_REGISTERS = true;
-const int DISPLAY_SIZE = 4;
-
-const int DISPLAY_LATCH = 4;
-const int DISPLAY_CLOCK = 7;
-const int DISPLAY_DATA = 8;
 
 #endif
