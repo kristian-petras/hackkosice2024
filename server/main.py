@@ -76,14 +76,14 @@ def pointFromModel(model: PointModel) -> SoundPoint:
 
     return soundPoint
 
-class CompositionRequest(BaseModel):
-    points: list
+@app.post("/playComposition/")
+async def play_composition(composition: CompositionModel):
+    parsed = list(map(pointFromModel, composition.points))
 
-@app.post("/playComposition")
-async def play_composition(composition: Request):
-    json_data = await composition.json()
-    print(json_data) 
-    return await composition.json()
+    freqs = [(x.sound.frequency, x.sound.duration) for x in parsed]
+    print(freqs) 
+
+    return composition
 
 @app.post("/uploadfile/")
 async def create_upload_file(file: UploadFile | None = None):
@@ -92,6 +92,7 @@ async def create_upload_file(file: UploadFile | None = None):
 
     freqs = extract_frequencies(file.file)
     print(freqs)
+
     return { "filename": file.filename }
 
     
