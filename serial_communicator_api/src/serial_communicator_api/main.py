@@ -2,7 +2,7 @@ import serial
 import time
 
 # Initialize serial connection
-ser = serial.Serial('/dev/ttyACM0', 115200)  # Use the correct port and match baud rate
+ser = serial.Serial('/dev/cu.usbmodem21303', 115200)  # Use the correct port and match baud rate
 time.sleep(2)  # Allow time for the serial connection to initialize
 
 def send_command(command_type, num_blocks, blocks=[]):
@@ -17,7 +17,7 @@ def send_command(command_type, num_blocks, blocks=[]):
             ser.write(bytes.fromhex(block))
 
 # Example usage
-command_type = 3  # Command to read blocks of data
+command_type = 3 # Command to read blocks of data
 blocks = ['1A3C5E7F', '8B9CAD0F']  # List of blocks to send
 send_command(command_type, len(blocks), blocks)
 

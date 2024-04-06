@@ -1,0 +1,18 @@
+[project]
+name = "serial_communicator_api"
+version = "0.1.0"
+description = "Default template for PDM package"
+authors = [
+    {name = "Kristian Petras", email = "kristian.petras@second-foundation.eu"},
+]
+dependencies = [
+    "pyserial",
+    "serial>=0.0.97",
+]
+requires-python = "==3.12.*"
+readme = "README.md"
+license = {text = "MIT"}
+
+
+[tool.pdm]
+distribution = false
