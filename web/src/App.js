@@ -6,6 +6,7 @@
         Link
     } from "react-router-dom";
     import NoteGrid from "./NoteGrid";
+    import * as Form from '@radix-ui/react-form';
 
 
     export default function MyApp() {
@@ -89,15 +90,36 @@
         </main>
     )
 
+    async function submitFile(filePicker) {
+      console.log("banan");
+      // Construct a FormData instance
+      const formData = new FormData();
+
+      // Add a file
+      const selection = filePicker.files;
+      if (selection.length > 0) {
+        console.log("jahoda");
+        const file = selection[0];
+        formData.append("file", file);
+      }
+
+      try {
+        const response = await fetch("http://127.0.0.1:8000/uploadfile/", {
+          method: "POST",
+          // Set the FormData instance as the request body
+          body: formData,
+        });
+        console.log(await response.json());
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
     const PlayFromFile = () => (
         <main>
             <Container size="4" mb="5">
                 <Heading as="h1" size="8">Play from file</Heading>
-            </Container>
-            <Container>
-                <Text>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas interdum semper arcu, et dictum ipsum. Curabitur sagittis imperdiet ultricies. Duis facilisis turpis id nisi lobortis, quis gravida ipsum tempor. Duis condimentum eleifend ante. Praesent ac purus eros. Nunc dictum molestie est sed faucibus. Praesent ac enim eu leo volutpat ullamcorper vel eu mi. Vestibulum lacus massa, tincidunt id elementum non, rutrum sit amet metus. Mauris vel sem elit. In dolor est, tristique et venenatis non, auctor et mauris. Integer fermentum metus fringilla sem maximus blandit. Morbi congue justo ex, eu iaculis dui ullamcorper vitae. Proin eros tortor, molestie a arcu ac, convallis placerat massa.
-                </Text>
+                <input type="file" id="soundFileInput" onChange={ (event) => submitFile(event.target) }/>
             </Container>
         </main>
     )
