@@ -40,6 +40,7 @@ export default function NoteGrid() {
 
     const submitComposition = () => {
         const url = 'http://127.0.0.1:8000/playComposition';
+        const origin = 'http://127.0.0.1:3000'; // Client origin
 
         const data = {
             points: [
@@ -59,7 +60,8 @@ export default function NoteGrid() {
         fetch(url, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Origin': origin
             },
             body: JSON.stringify(data)
         })
