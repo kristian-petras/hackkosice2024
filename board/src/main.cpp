@@ -1,6 +1,6 @@
 #include <Arduino.h>
 #include <DebounceEvent.h>
-#include <ShiftDisplay2>
+#include <ShiftDisplay2.h>
 #include "constants.h"
 
 DebounceEvent* button;
