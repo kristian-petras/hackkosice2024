@@ -7,4 +7,6 @@ void init_buzzer();
 
 void tone(int frequency, int duration);
 
+void play(int frequencies[], int pause);
+
 #endif // BUZZER_H
