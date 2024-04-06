@@ -102,8 +102,8 @@ export default function NoteGrid() {
                         <Flex direction="column" gapY="4">
                             <Heading as="h2" size="6" mb="2">Control Panel</Heading>
                             <Button>Pause</Button>
-                            <Button onClick={() => emptyList()}>Remove All</Button>
-                            <Button onClick={() => submitComposition()}>Submit ✅</Button>
+                            <Button onClick={() => emptyList()} disabled={selectedTones.length === 0}>Remove All</Button>
+                            <Button onClick={() => submitComposition()} disabled={selectedTones.length === 0}>Submit ✅</Button>
                         </Flex>
                     </Card>
                 </Box>
