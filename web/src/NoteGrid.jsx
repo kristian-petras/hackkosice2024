@@ -38,6 +38,45 @@ export default function NoteGrid() {
         });
     };
 
+    const submitComposition = () => {
+        const url = 'http://127.0.0.1:8000/playComposition';
+
+        const data = {
+            points: [
+                {
+                    note: 'C',
+                    octave: 4,
+                    duration: 500
+                },
+                {
+                    note: 'E',
+                    octave: 4,
+                    duration: 500
+                },
+            ]
+        };
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Response:', data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    };
+
     return (
         <>
             <Card mb="4">
@@ -64,7 +103,7 @@ export default function NoteGrid() {
                             <Heading as="h2" size="6" mb="2">Control Panel</Heading>
                             <Button>Pause</Button>
                             <Button onClick={() => emptyList()}>Remove All</Button>
-                            <Button>Submit ✅</Button>
+                            <Button onClick={() => submitComposition()}>Submit ✅</Button>
                         </Flex>
                     </Card>
                 </Box>
