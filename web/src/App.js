@@ -15,6 +15,7 @@
               <Routes>
                   <Route path="/" element={<Composer/>} />
                   <Route path="/t2s" element={<T2S/>} />
+                  <Route path="/playFromFile" element={<PlayFromFile/>} />
               </Routes>
               <Footer />
           </Router>
@@ -37,6 +38,7 @@
                         <Flex direction="row" gapX="3">
                             <Link to="/" weight="medium">Composer</Link>
                             <Link to="/t2s" weight="medium">Text to speech</Link>
+                            <Link to="/playFromFile" weight="medium">Play from file</Link>
                         </Flex>
                     </Flex>
                 </Card>
@@ -82,6 +84,19 @@
 
                     Aliquam hendrerit pellentesque elit, a pharetra lorem gravida eu. Fusce commodo nunc ut leo finibus, ac malesuada velit hendrerit. Nam tristique augue vitae arcu semper, non laoreet tellus tempor. Integer faucibus eros pretium placerat aliquam. Phasellus viverra, turpis elementum laoreet ullamcorper, risus arcu mattis nunc, nec tincidunt tellus turpis quis purus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac finibus erat. Suspendisse varius dui quis gravida vulputate. Suspendisse non erat erat. Nunc ut tortor tortor. Pellentesque justo lorem, tempus at est nec, lobortis accumsan ligula.
 
+                </Text>
+            </Container>
+        </main>
+    )
+
+    const PlayFromFile = () => (
+        <main>
+            <Container size="4" mb="5">
+                <Heading as="h1" size="8">Play from file</Heading>
+            </Container>
+            <Container>
+                <Text>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas interdum semper arcu, et dictum ipsum. Curabitur sagittis imperdiet ultricies. Duis facilisis turpis id nisi lobortis, quis gravida ipsum tempor. Duis condimentum eleifend ante. Praesent ac purus eros. Nunc dictum molestie est sed faucibus. Praesent ac enim eu leo volutpat ullamcorper vel eu mi. Vestibulum lacus massa, tincidunt id elementum non, rutrum sit amet metus. Mauris vel sem elit. In dolor est, tristique et venenatis non, auctor et mauris. Integer fermentum metus fringilla sem maximus blandit. Morbi congue justo ex, eu iaculis dui ullamcorper vitae. Proin eros tortor, molestie a arcu ac, convallis placerat massa.
                 </Text>
             </Container>
         </main>
