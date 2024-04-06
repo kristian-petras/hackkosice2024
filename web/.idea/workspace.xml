@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="21a5e67a-8db7-4b23-bc1d-fbeb4599d576" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/public/bsh.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/styles.css" afterDir="false" />
+    <list default="true" id="21a5e67a-8db7-4b23-bc1d-fbeb4599d576" name="Changes" comment="init: basic web app">
+      <change afterPath="$PROJECT_DIR$/src/NoteGrid.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,6 +45,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.standard": "",
     "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
     "ts.external.directory.path": "/Users/podmepodme/Library/Application Support/JetBrains/Toolbox/apps/WebStorm/ch-0/222.3345.108/WebStorm.app/Contents/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external",
     "vue.rearranger.settings.migration": "true"
   }
@@ -71,8 +75,16 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1712410728241</updated>
-      <workItem from="1712410731171" duration="11528000" />
+      <workItem from="1712410731171" duration="20369000" />
     </task>
+    <task id="LOCAL-00001" summary="init: basic web app">
+      <created>1712423071382</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1712423071382</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -88,5 +100,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="init: basic web app" />
+    <option name="LAST_COMMIT_MESSAGE" value="init: basic web app" />
   </component>
 </project>

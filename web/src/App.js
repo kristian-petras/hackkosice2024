@@ -5,6 +5,7 @@
         Route,
         Link
     } from "react-router-dom";
+    import NoteGrid from "./NoteGrid";
 
 
     export default function MyApp() {
@@ -60,8 +61,12 @@
 
     const Composer = () => (
         <main>
-            <Container size="4">
+            <Container size="4" mb="5">
                 <Heading as="h1" size="8">Composer</Heading>
+            </Container>
+
+            <Container>
+                <NoteGrid/>
             </Container>
 
             <Container>
@@ -84,7 +89,7 @@
 
     const T2S = () => (
         <main>
-            <Container size="4">
+            <Container size="4" mb="5">
                 <Heading as="h1" size="8">Text to speech</Heading>
             </Container>
 
