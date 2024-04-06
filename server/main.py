@@ -1,6 +1,6 @@
 import serial
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, UploadFile
 from enum import Enum
 from dataclasses import dataclass
 from uuid import UUID, uuid4 as getId
@@ -34,22 +34,18 @@ class Sound:
 @dataclass
 class SoundPoint:
     id: UUID
-    time: int
     sound: Sound
 
 @dataclass
 class Composition:
-    duration: int
     points: List[SoundPoint]
 
 class PointModel(BaseModel):
-    time: int
     note: str
     octave: int
     duration: int
 
 class CompositionModel(BaseModel):
-    duration: int
     points: List[PointModel]
 
 # ser = serial.Serial('/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_0670FF485251667187121236-if02', 9600)
@@ -59,16 +55,25 @@ app = FastAPI()
 def pointFromModel(model: PointModel) -> SoundPoint:
     soundFrequency = NOTES[model.note][model.octave]
     sound = Sound(model.duration, soundFrequency)
-    soundPoint = SoundPoint(getId(), model.time, sound)
+    soundPoint = SoundPoint(getId(), sound)
 
     return soundPoint
 
 @app.post("/playComposition/")
 async def submit_composition(model: CompositionModel):
     points = list(map(pointFromModel, model.points))
-    composition = Composition(model.duration, points)
+    composition = Composition(points)
 
     print(composition)
+
+@app.post("/uploadfile/")
+async def create_upload_file(file: UploadFile | None = None):
+    if not file:
+        return {"message": "No upload file sent"}
+
+    print(file.filename)
+
+    
 
 if __name__ == "__main__":
     uvicorn.run(app)
