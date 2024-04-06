@@ -4,7 +4,9 @@
 #include "constants.h"
 
 DebounceEvent* button;
-ShiftDisplay2 display(DISPLAY_LATCH, DISPLAY_CLOCK, DISPLAY_DATA, COMMON_ANODE, 4, true);
+ShiftDisplay2 display(
+    DISPLAY_LATCH, DISPLAY_CLOCK, DISPLAY_DATA,
+    COMMON_ANODE, DISPLAY_SIZE, SWAP_SHIFT_REGISTERS);
 
 void blink_led(int pin, int delay_ms) {
     digitalWrite(pin, HIGH);
@@ -42,7 +44,7 @@ void display_demo() {
         display.changeDot(1);
         display.show(400);
     }
-    display.set("GO"); // store "GO"
+    display.set("HOGI"); // store "GO"
 }
 
 void setup() {

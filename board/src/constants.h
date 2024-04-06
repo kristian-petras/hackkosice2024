@@ -16,6 +16,9 @@ const int BUTTON_3 = A3;
 
 const int BUZZER = 3;
 
+const bool SWAP_SHIFT_REGISTERS = true;
+const int DISPLAY_SIZE = 4;
+
 const int DISPLAY_LATCH = 4;
 const int DISPLAY_CLOCK = 7;
 const int DISPLAY_DATA = 8;
