@@ -16,4 +16,8 @@ const int BUTTON_3 = A3;
 
 const int BUZZER = 3;
 
+const int DISPLAY_LATCH = 4;
+const int DISPLAY_CLOCK = 7;
+const int DISPLAY_DATA = 8;
+
 #endif

@@ -1,8 +1,10 @@
 #include <Arduino.h>
 #include <DebounceEvent.h>
+#include <ShiftDisplay2>
 #include "constants.h"
 
 DebounceEvent* button;
+ShiftDisplay2 display(DISPLAY_LATCH, DISPLAY_CLOCK, DISPLAY_DATA, COMMON_ANODE, 4, true);
 
 void blink_led(int pin, int delay_ms) {
     digitalWrite(pin, HIGH);
@@ -31,6 +33,18 @@ void play_buzzer(int delay_ms) {
     analogWrite(3, LOW);
 }
 
+void display_demo() {
+    for (int i = 3; i > 0; i--) {
+        // store number and show it for 400ms
+        display.set(i, ALIGN_CENTER);
+        display.show(400);
+        // add dot to stored number and show it for 400ms
+        display.changeDot(1);
+        display.show(400);
+    }
+    display.set("GO"); // store "GO"
+}
+
 void setup() {
     pinMode(_D1_INVERTED, OUTPUT);
     pinMode(_D2_INVERTED, OUTPUT);
@@ -41,6 +55,8 @@ void setup() {
 
     button = new DebounceEvent(BUTTON_1, BUTTON_PUSHBUTTON | BUTTON_DEFAULT_HIGH | BUTTON_SET_PULLUP, 50, 500);
     turn_off_leds();
+
+    display_demo();
 }
 
 void loop() {
@@ -50,4 +66,6 @@ void loop() {
             play_buzzer(1000);
         }
     }
+
+    display.update();
 }
