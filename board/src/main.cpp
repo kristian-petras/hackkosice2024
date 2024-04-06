@@ -24,5 +24,5 @@ void loop() {
   blink_led(_D1_INVERTED, 1500);
   blink_led(_D2, 1000);
   blink_led(_D3_INVERTED, 500);
-  blink_led(_D4_INVERTED, 250);
+  blink_led(_D4_INVERTED, 250); 
 }
