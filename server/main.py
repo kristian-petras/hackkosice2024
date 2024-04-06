@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from uuid import UUID, uuid4 as getId
 from pydantic import BaseModel
 from typing import List
+from fastapi.middleware.cors import CORSMiddleware
 
 NOTES = {
     "C": [16.35, 32.7, 65.41, 130.81, 261.63, 523.25, 1046.5, 2093, 4186, ],
@@ -51,6 +52,18 @@ class CompositionModel(BaseModel):
 # ser = serial.Serial('/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_0670FF485251667187121236-if02', 9600)
 # ser = serial.Serial('/dev/ttyACM0', 9600)
 app = FastAPI()
+
+origins = [
+    "http://localhost:3000",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 def pointFromModel(model: PointModel) -> SoundPoint:
     soundFrequency = NOTES[model.note][model.octave]
