@@ -6,6 +6,7 @@
         Link
     } from "react-router-dom";
     import NoteGrid from "./NoteGrid";
+    import * as Form from '@radix-ui/react-form';
 
 
     export default function MyApp() {
@@ -15,6 +16,7 @@
               <Routes>
                   <Route path="/" element={<Composer/>} />
                   <Route path="/t2s" element={<T2S/>} />
+                  <Route path="/playFromFile" element={<PlayFromFile/>} />
               </Routes>
               <Footer />
           </Router>
@@ -37,6 +39,7 @@
                         <Flex direction="row" gapX="3">
                             <Link to="/" weight="medium">Composer</Link>
                             <Link to="/t2s" weight="medium">Text to speech</Link>
+                            <Link to="/playFromFile" weight="medium">Play from file</Link>
                         </Flex>
                     </Flex>
                 </Card>
@@ -83,6 +86,40 @@
                     Aliquam hendrerit pellentesque elit, a pharetra lorem gravida eu. Fusce commodo nunc ut leo finibus, ac malesuada velit hendrerit. Nam tristique augue vitae arcu semper, non laoreet tellus tempor. Integer faucibus eros pretium placerat aliquam. Phasellus viverra, turpis elementum laoreet ullamcorper, risus arcu mattis nunc, nec tincidunt tellus turpis quis purus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac finibus erat. Suspendisse varius dui quis gravida vulputate. Suspendisse non erat erat. Nunc ut tortor tortor. Pellentesque justo lorem, tempus at est nec, lobortis accumsan ligula.
 
                 </Text>
+            </Container>
+        </main>
+    )
+
+    async function submitFile(filePicker) {
+      console.log("banan");
+      // Construct a FormData instance
+      const formData = new FormData();
+
+      // Add a file
+      const selection = filePicker.files;
+      if (selection.length > 0) {
+        console.log("jahoda");
+        const file = selection[0];
+        formData.append("file", file);
+      }
+
+      try {
+        const response = await fetch("http://127.0.0.1:8000/uploadfile/", {
+          method: "POST",
+          // Set the FormData instance as the request body
+          body: formData,
+        });
+        console.log(await response.json());
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    const PlayFromFile = () => (
+        <main>
+            <Container size="4" mb="5">
+                <Heading as="h1" size="8">Play from file</Heading>
+                <input type="file" id="soundFileInput" onChange={ (event) => submitFile(event.target) }/>
             </Container>
         </main>
     )
