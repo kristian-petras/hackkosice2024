@@ -5,6 +5,7 @@
 
 DebounceEvent* button;
 ShiftDisplay2 display = Display::get_default();
+#define BLOCK_SIZE 4 // Define the size of each block
 
 void blink_led(int pin, int delay_ms) {
     digitalWrite(pin, HIGH);
@@ -45,7 +46,41 @@ void display_demo() {
     display.set("HOGI"); // store "GO"
 }
 
+void read_blocks_data(){
+  if (Serial.available() >= 4) {
+    uint16_t commandType = Serial.read() | (Serial.read() << 8);
+    uint16_t numBlocks = 0; // Used only for specific commands
+    
+    // Command to process a specific number of blocks
+    if (commandType == 3) {
+      numBlocks = Serial.read() | (Serial.read() << 8);
+      for (uint16_t i = 0; i < numBlocks && Serial.available() >= 4; i++) {
+        uint32_t block = Serial.read()
+                         | (Serial.read() << 8)
+                         | (Serial.read() << 16)
+                         | (Serial.read() << 24);
+        // Process the block here
+        Serial.print("Received block: ");
+        Serial.println(block, HEX);
+      }
+    } 
+    // New command to read all available data
+    else if (commandType == 4) {
+      while (Serial.available() > 0) {
+        // Read and process all available data
+        char data = Serial.read();
+        Serial.print("Received data: ");
+        Serial.println(data, HEX);
+      }
+    }
+    // Add delays or synchronization as needed
+  }
+
+  
+}
+
 void setup() {
+    Serial.begin(115200); 
     pinMode(_D1_INVERTED, OUTPUT);
     pinMode(_D2_INVERTED, OUTPUT);
     pinMode(_D3_INVERTED, OUTPUT);
@@ -55,8 +90,8 @@ void setup() {
 
     button = new DebounceEvent(BUTTON_1, BUTTON_PUSHBUTTON | BUTTON_DEFAULT_HIGH | BUTTON_SET_PULLUP, 50, 500);
     turn_off_leds();
-
     display_demo();
+    
 }
 
 void loop() {
@@ -68,4 +103,5 @@ void loop() {
     }
 
     display.update();
+    read_blocks_data();
 }
