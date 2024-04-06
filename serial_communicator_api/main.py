@@ -17,7 +17,7 @@ def send_command(command_type, num_blocks, blocks=[]):
             ser.write(bytes.fromhex(block))
 
 # Example usage
-command_type = 4  # Command to read blocks of data
+command_type = 3  # Command to read blocks of data
 blocks = ['1A3C5E7F', '8B9CAD0F']  # List of blocks to send
 send_command(command_type, len(blocks), blocks)
 
