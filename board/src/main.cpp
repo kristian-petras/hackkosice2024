@@ -169,6 +169,7 @@ void loop() {
         case CommandType::TextToSpeech:
             for (int i = 0; i < command.payloadSize; i++) {
                 char character = Serial.read();
+                Serial.printf("Character: %c\n", character);
                 SAY_CHARACTER(to_uppercase(character));
             }
             break;
