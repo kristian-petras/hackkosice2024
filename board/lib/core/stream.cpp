@@ -1,4 +1,4 @@
-#include <Arduino.h>
+#include <stream.h>
 
 u_int16_t read_command() {
     if (Serial.available() >= 2) {
@@ -7,7 +7,7 @@ u_int16_t read_command() {
     return 0;
 }
 
-void read_data(uint16_t* frequencies, u_int16_t* durations, size_t size) {
+void read_data(uint16_t* frequencies, u_int16_t* durations, u_int16_t size) {
     if (Serial.available() >= size) {
         for (size_t i = 0; i < size; i += 4) {
             frequencies[i] = Serial.read() | (Serial.read() << 8);
