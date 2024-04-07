@@ -1,19 +1,34 @@
 #include <stream.h>
 
-uint32_t read_command() {
-    while (true)
-    {
-        if (Serial.available() >= 4) {
-            uint32_t first = Serial.read();
-            uint32_t second = Serial.read();
-            uint32_t third = Serial.read();
-            uint32_t fourth = Serial.read();
-            uint32_t result = fourth | (third << 8) | (second << 16) | (first << 24);
-            return result;
-        }
-    }
+// CommandType (1byte) + Unit Note Length (1byte) + Payload size (4bytes)
+#define COMMAND_SIZE_BYTES 7
 
-    return 0;
+// NOTE: always call check_command() before this, so it doesn't block
+Command read_command() {
+    Command result;
+    result.type = Invalid;
+
+    while (Serial.available() < 1) {}
+    uint32_t type = Serial.read();
+    if (type >= CommandType::Invalid) {
+        return result;
+    }
+    result.type = (CommandType)type;
+
+    while (Serial.available() < 2) {}
+    uint32_t unitNoteHigh = Serial.read();
+    uint32_t unitNoteLow = Serial.read();
+    result.unitNoteDuration = unitNoteLow | (unitNoteHigh << 8);
+
+    while (Serial.available() < 4) {}
+    uint32_t first = Serial.read();
+    uint32_t second = Serial.read();
+    uint32_t third = Serial.read();
+    uint32_t fourth = Serial.read();
+    uint32_t payloadSize = fourth | (third << 8) | (second << 16) | (first << 24);
+    result.payloadSize = payloadSize;
+
+    return result;
 }
 
 void read_data(uint16_t* frequencies, uint16_t* durations, uint16_t index, uint16_t count) {
@@ -33,5 +48,5 @@ void read_data(uint16_t* frequencies, uint16_t* durations, uint16_t index, uint1
 }
 
 bool check_command() {
-    return Serial.available() >= 4;
+    return Serial.available() >= COMMAND_SIZE_BYTES;
 }

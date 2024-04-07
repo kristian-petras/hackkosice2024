@@ -42,22 +42,26 @@ Talkie voice;
 
 int mode = 0;
 
-void play_sound(uint16_t delay, uint16_t size) {
-    Serial.printf("Playing sound with delay %d and size %d\n", delay, size);
+void play_sound(uint16_t unitNoteDuration, uint16_t size) {
+    Serial.printf("Playing sound with delay %d and size %d\n", unitNoteDuration, size);
 
     for (int i = 0; i < size; i++) {
         read_data(frequencies, durations, i, MESSAGE_SIZE);
         Serial.printf("Received data (%d/%d):(%d - %d)\n", i + 1, size, frequencies[i], durations[i]);
     }
 
-    play(frequencies, durations, size);
+    play(frequencies, durations, size, unitNoteDuration);
 }
 
 void loop() {
     if (check_command()) {
-        uint32_t command = read_command();
-        if (command == 0) {
-            play_sound(0, command); // add size and delay to protocol
+        Command command = read_command();
+        switch (command.type) {
+        case CommandType::FreqsFromSerial:
+            play_sound(command.unitNoteDuration, command.payloadSize);
+            break;
+        case CommandType::TextToSpeech:
+            break; // TODO
         }
     }
     else {
