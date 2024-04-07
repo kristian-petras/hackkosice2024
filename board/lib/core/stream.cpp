@@ -16,19 +16,17 @@ uint32_t read_command() {
     return 0;
 }
 
-void read_data(uint16_t* frequencies, uint16_t* durations, uint16_t size) {
+void read_data(uint16_t* frequencies, uint16_t* durations, uint16_t start, uint16_t count) {
     while (true)
     {
-        if (Serial.available() >= size * 4) {
-            Serial.printf("hura");
-            for (size_t i = 0; i < size; i++) {
+        if (Serial.available() >= count * 4) {
+            for (size_t i = 0; i < count; i++) {
                 uint32_t first_frequency = Serial.read();
                 uint32_t second_frequency = Serial.read();
                 uint32_t first_duration = Serial.read();
                 uint32_t second_duration = Serial.read();
                 frequencies[i] = second_frequency | (first_frequency << 8);
                 durations[i] = second_duration | (first_duration << 8);
-                Serial.printf("Received data (%d/%d):\n", i + 1, size);
             }
             return;
         }

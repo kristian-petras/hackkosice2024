@@ -4,13 +4,13 @@
 #include <button.h>
 #include <buzzer.h>
 #include <stream.h>
-#include <tts.h>
 
 #include <Talkie.h>
 #include <Vocab_Special.h>
 #include <Vocab_US_Acorn.h>
 
 #define BUFFER_SIZE 1024
+#define MESSAGE_SIZE 4
 
 ShiftDisplay2 display = get_display();
 
@@ -46,7 +46,12 @@ void loop() {
     uint32_t command = read_command();
     Serial.printf("Received command: %d\n", command);
     Serial.printf("Size of file: %d\n", command);
-    read_data(frequencies, durations, command); // command contains size of file
+
+    for (int i = 0; i < command; i++) {
+        Serial.printf("Received data (%d/%d):\n", i, command);
+        read_data(frequencies, durations, i * MESSAGE_SIZE, MESSAGE_SIZE);
+    }
+
     while (true)
     {
         play(frequencies, durations, command);
