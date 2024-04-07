@@ -1,4 +1,4 @@
-import {Button, Card, Box} from "@radix-ui/themes";
+import {Button, Card, Flex} from "@radix-ui/themes";
 
 export default function PlayerInput() {
     async function submitFile(filePicker) {
@@ -30,10 +30,9 @@ export default function PlayerInput() {
 
     return (
         <Card mt="3" >
-            <Box pt="3" pb="3">
+            <Flex pt="3" pb="3" align="center" justify="center">
                 <input  type="file" id="soundFileInput" onChange={ (event) => submitFile(event.target) }/>
-            </Box>
-
+            </Flex>
         </Card>
     )
 }
