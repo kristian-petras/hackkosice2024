@@ -71,6 +71,9 @@ void play_sound(uint16_t unitNoteDuration, uint16_t size) {
     Serial.printf("Playing sound with delay %d and size %d\n", unitNoteDuration, size);
 
     for (int i = 0; i < size; i++) {
+        display.clear();
+        display.set("load");
+        display.update();
         read_data(frequencies, durations, i, MESSAGE_SIZE);
         Serial.printf("Received data (%d/%d):(%d - %d)\n", i + 1, size, frequencies[i], durations[i]);
 
@@ -87,6 +90,8 @@ void play_sound(uint16_t unitNoteDuration, uint16_t size) {
         }
     }
 
+    display.clear();
+    display.update();
     play(frequencies, durations, size, unitNoteDuration);
 }
 
@@ -136,6 +141,10 @@ void loop() {
         switch (command.type) {
         case CommandType::FreqsFromSerial:
             play_sound(command.unitNoteDuration, command.payloadSize);
+            // while serial available, read and clean up
+            while (Serial.available()) {
+                Serial.read();
+            }
             break;
         case CommandType::TextToSpeech:
             for (int i = 0; i < command.payloadSize; i++) {
