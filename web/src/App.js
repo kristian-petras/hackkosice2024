@@ -121,8 +121,9 @@
                             </Flex>
                         </Card>
                         <Card style={{ width: "49%" }}>
-                            <Flex direction="column">
-
+                            <Flex direction="column" justify="center" align="center">
+                                <Box><img src="./device.jpg.webp" alt="Device" width="300px" />
+                                </Box>
                             </Flex>
                         </Card>
                     </div>
