@@ -30,14 +30,19 @@ void setup() {
     display_demo(display);
 }
 
-u_int16_t frequencies[BUFFER_SIZE];
-u_int16_t durations[BUFFER_SIZE];
+uint16_t frequencies[BUFFER_SIZE];
+uint16_t durations[BUFFER_SIZE];
 
 void loop() {
     // waiting for command
     Serial.println("Waiting for command...");
-    u_int16_t command = read_command();
+    uint32_t command = read_command();
     Serial.printf("Received command: %d\n", command);
+    Serial.printf("Size of file: %d\n", command);
     read_data(frequencies, durations, command); // command contains size of file
-    play(frequencies, durations, command);
+    while (true)
+    {
+        play(frequencies, durations, command);
+        delay(1000);
+    }
 }

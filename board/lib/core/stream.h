@@ -6,5 +6,5 @@
 
 void read_data(uint16_t* frequencies, uint16_t* durations, uint16_t size);
 
-uint16_t read_command();
+uint32_t read_command();
 #endif // STREAM_H

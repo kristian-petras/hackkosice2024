@@ -1,10 +1,15 @@
 #include <stream.h>
 
-uint16_t read_command() {
+uint32_t read_command() {
     while (true)
     {
-        if (Serial.available() >= 2) {
-            return Serial.read() | (Serial.read() << 8);
+        if (Serial.available() >= 4) {
+            uint32_t first = Serial.read();
+            uint32_t second = Serial.read();
+            uint32_t third = Serial.read();
+            uint32_t fourth = Serial.read();
+            uint32_t result = fourth | (third << 8) | (second << 16) | (first << 24);
+            return result;
         }
     }
 
@@ -12,15 +17,22 @@ uint16_t read_command() {
 }
 
 void read_data(uint16_t* frequencies, uint16_t* durations, uint16_t size) {
-    if (Serial.available() >= size) {
-        for (size_t i = 0; i < size; i += 4) {
-            frequencies[i] = Serial.read() | (Serial.read() << 8);
-            durations[i] = Serial.read() | (Serial.read() << 8);
-            Serial.printf("Received data (%d/%d):\n", i, size);
-            Serial.println(frequencies[i], HEX);
-            Serial.println(durations[i], HEX);
+    while (true)
+    {
+        if (Serial.available() >= size * 4) {
+            for (size_t i = 0; i < size; i++) {
+                uint32_t first_frequency = Serial.read();
+                uint32_t second_frequency = Serial.read();
+                uint32_t first_duration = Serial.read();
+                uint32_t second_duration = Serial.read();
+                frequencies[i] = second_frequency | (first_frequency << 8);
+                durations[i] = second_duration | (first_duration << 8);
+                Serial.printf("Received data (%d/%d):\n", i + 1, size);
+            }
+            return;
         }
     }
+
 }
 
 /* void read_data(uint16_t* buffer, size_t size) {
