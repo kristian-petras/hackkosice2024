@@ -17,6 +17,7 @@
                   <Route path="/" element={<Composer/>} />
                   <Route path="/t2s" element={<T2S/>} />
                   <Route path="/playFromFile" element={<PlayFromFile/>} />
+                  <Route path="/settings" element={<Settings/>}/>
               </Routes>
               <Footer />
           </Router>
@@ -46,6 +47,9 @@
                             <Link asChild weight="medium">
                                 <RLink to="/playFromFile" weight="medium">Play from file</RLink>
                             </Link>
+                            <Link asChild weight="medium">
+                                <RLink to="/settings" weight="medium">Device️</RLink>
+                            </Link>
                         </Flex>
                     </Flex>
                 </Card>
@@ -62,10 +66,8 @@
                     align="center"
                     mb="4"
                 >
-
                 <Text>Hack Košice 2024 - bsh-challenge</Text>
                 <Text>Peter Grocký - Edo Hopfer - Kristián Petráš - Simon Soroka</Text>
-
                 </Flex>
             </Container>
         </footer>
@@ -74,7 +76,7 @@
     const Composer = () => (
         <main>
             <Container size="4">
-                <Heading as="h1" size="8" mb="3">Composer</Heading>
+                <Heading as="h1" size="8" mb="3">Composer🎼</Heading>
                 <Text>
                     The composer allows users to create musical compositions by selecting notes, octaves, and specifying their duration. It presents a grid of buttons representing different notes and octaves. Users can click on these buttons to add musical elements to their composition. The composition can then be submitted for playback.
                 </Text>
@@ -86,10 +88,23 @@
         </main>
     )
 
+    const Settings = () => (
+        <main>
+            <Container size="4">
+                <Heading as="h1" size="8" mb="3">Device🛠️</Heading>
+                <Flex direction="column" gapY="3">
+                    <Text>
+                        Lorem ipsum...
+                    </Text>
+                </Flex>
+            </Container>
+        </main>
+    )
+
     const PlayFromFile = () => (
         <main>
             <Container size="4">
-                <Heading as="h1" size="8" mb="3">Play from file</Heading>
+                <Heading as="h1" size="8" mb="3">Play from File🎧</Heading>
                 <Flex direction="column" gapY="3">
                     <Text>
                         This component provides an easy way for users to select an audio file from their device for further processing or playback. It presents a file selection input field where users can browse their local files to choose the audio file they wish to work with.
@@ -105,7 +120,7 @@
     const T2S = () => (
         <main>
             <Container size="4">
-                <Heading as="h1" size="8" mb="3">Text to Voice</Heading>
+                <Heading as="h1" size="8" mb="3">Text to Voice🎤</Heading>
                 <Flex direction="column" gapY="3">
                 <Text>
                     This tool is a web-based form designed to convert text input into spoken words, allowing users to generate audio from written content. The form consists of a text input area where users can type or paste the text they want to convert. Below the text input area, there is a button labeled "Speak🗣️". Clicking this button initiates the conversion process.
