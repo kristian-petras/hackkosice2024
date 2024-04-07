@@ -89,6 +89,15 @@ char get_character(int value) {
     }
 }
 
+char to_uppercase(char c) {
+    if (c >= 'a' && c <= 'z') {
+        return c - 'a' + 'A';
+    }
+    else {
+        return c;
+    }
+}
+
 int selected_character = DEFAULT_CHARACTER;
 
 int cycle_counter(bool increment, int counter, int start, int end) {
@@ -116,7 +125,11 @@ void loop() {
             play_sound(command.unitNoteDuration, command.payloadSize);
             break;
         case CommandType::TextToSpeech:
-            break; // TODO
+            for (int i = 0; i < command.payloadSize; i++) {
+                char character = Serial.read();
+                SAY_CHARACTER(to_uppercase(character));
+            }
+            break;
         }
     }
     else {
