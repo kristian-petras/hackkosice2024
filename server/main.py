@@ -71,7 +71,7 @@ def serializeComposition(composition):
     with open(filename, 'w+') as f:
         f.write(json.dumps(composition, cls=EnhancedJSONEncoder))
 
-
+# ser = serial.Serial('/dev/cu.usbmodem21203', 115200)
 # ser = serial.Serial('/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_0670FF485251667187121236-if02', 9600)
 ser = serial.Serial('/dev/ttyACM0', 115200)
 app = FastAPI()
