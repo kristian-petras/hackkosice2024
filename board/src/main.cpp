@@ -71,10 +71,32 @@ void play_sound(uint16_t unitNoteDuration, uint16_t size) {
     Serial.printf("Playing sound with delay %d and size %d\n", unitNoteDuration, size);
 
     for (int i = 0; i < size; i++) {
+        display.set("load");
+        display.show();
+
         read_data(frequencies, durations, i, MESSAGE_SIZE);
         Serial.printf("Received data (%d/%d):(%d - %d)\n", i + 1, size, frequencies[i], durations[i]);
+
+        float percentage = (i + 1) / size;
+        int ledsToTurnOn = percentage / 20;
+
+        for (int j = 0; j < 4; j++) {
+            if (j < ledsToTurnOn) {
+                led_toggle(j, LOW);
+            }
+            else {
+                led_toggle(j, HIGH);
+            }
+        }
     }
 
+    for (size_t i = 0; i < 4; i++)
+    {
+        led_toggle(i, HIGH);
+    }
+
+    display.set("play");
+    display.show();
     play(frequencies, durations, size, unitNoteDuration);
 }
 
