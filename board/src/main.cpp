@@ -9,7 +9,7 @@
 #include <Vocab_Special.h>
 #include <Vocab_US_Acorn.h>
 
-#define BUFFER_SIZE 1024
+#define BUFFER_SIZE 1024 * 4
 #define MESSAGE_SIZE 4
 #define SEGMENT_COUNT 4
 #define DEFAULT_CHARACTER 26
@@ -71,13 +71,10 @@ void play_sound(uint16_t unitNoteDuration, uint16_t size) {
     Serial.printf("Playing sound with delay %d and size %d\n", unitNoteDuration, size);
 
     for (int i = 0; i < size; i++) {
-        display.set("load");
-        display.show();
-
         read_data(frequencies, durations, i, MESSAGE_SIZE);
         Serial.printf("Received data (%d/%d):(%d - %d)\n", i + 1, size, frequencies[i], durations[i]);
 
-        float percentage = (i + 1) / size;
+        float percentage = (i + 1) * 100 / size;
         int ledsToTurnOn = percentage / 20;
 
         for (int j = 0; j < 4; j++) {
@@ -90,13 +87,6 @@ void play_sound(uint16_t unitNoteDuration, uint16_t size) {
         }
     }
 
-    for (size_t i = 0; i < 4; i++)
-    {
-        led_toggle(i, HIGH);
-    }
-
-    display.set("play");
-    display.show();
     play(frequencies, durations, size, unitNoteDuration);
 }
 
