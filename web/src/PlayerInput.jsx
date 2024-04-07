@@ -1,3 +1,5 @@
+import {Button, Card, Box} from "@radix-ui/themes";
+
 export default function PlayerInput() {
     async function submitFile(filePicker) {
         console.log("banan");
@@ -19,12 +21,19 @@ export default function PlayerInput() {
                 body: formData,
             });
             console.log(await response.json());
+            filePicker.content = "";
         } catch (e) {
             console.error(e);
+            filePicker.content = "";
         }
     }
 
     return (
-        <input type="file" id="soundFileInput" onChange={ (event) => submitFile(event.target) }/>
+        <Card mt="3" >
+            <Box pt="3" pb="3">
+                <input  type="file" id="soundFileInput" onChange={ (event) => submitFile(event.target) }/>
+            </Box>
+
+        </Card>
     )
 }

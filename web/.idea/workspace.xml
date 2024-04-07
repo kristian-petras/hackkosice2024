@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="21a5e67a-8db7-4b23-bc1d-fbeb4599d576" name="Changes" comment="fix: footer content">
+    <list default="true" id="21a5e67a-8db7-4b23-bc1d-fbeb4599d576" name="Changes" comment="fix: Links working!">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PlayerInput.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/PlayerInput.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,7 +74,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1712410728241</updated>
-      <workItem from="1712410731171" duration="41488000" />
+      <workItem from="1712410731171" duration="42365000" />
     </task>
     <task id="LOCAL-00001" summary="init: basic web app">
       <created>1712423071382</created>
@@ -194,7 +195,14 @@
       <option name="project" value="LOCAL" />
       <updated>1712477987593</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="fix: Links working!">
+      <created>1712478491934</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1712478491934</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -230,6 +238,7 @@
     <MESSAGE value="feat: notification colors" />
     <MESSAGE value="feat: footer content" />
     <MESSAGE value="fix: footer content" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: footer content" />
+    <MESSAGE value="fix: Links working!" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: Links working!" />
   </component>
 </project>
