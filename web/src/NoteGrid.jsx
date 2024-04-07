@@ -22,6 +22,7 @@ const DurationSlider = ({ duration, onDurationChange }) => {
     );
 };
 
+
 export default function NoteGrid() {
     const octaves = [0, 1, 2, 3, 4, 5, 6, 7, 8];
     const tones = [
@@ -51,6 +52,40 @@ export default function NoteGrid() {
         }
         setSelectedTones([...selectedTones, { className, id, duration }]);
         console.log('Added tone:', className, 'with id:', id, 'Duration:', duration[0] * 10);
+    };
+
+    const exportMelody = () => {
+        const jsonString = JSON.stringify(selectedTones, null, 2);
+        const blob = new Blob([jsonString], { type: 'application/json' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'data.json'; // Filename
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+    };
+
+    const handleDragOver = (event) => {
+        event.preventDefault();
+    };
+
+    const handleDrop = (event) => {
+        event.preventDefault();
+        const file = event.dataTransfer.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const jsonData = JSON.parse(e.target.result);
+                    setSelectedTones(jsonData);
+                } catch (error) {
+                    console.error('Error parsing JSON:', error);
+                }
+            };
+            reader.readAsText(file);
+        }
     };
 
     const emptyList = () => {
@@ -116,7 +151,7 @@ export default function NoteGrid() {
     };
 
     return (
-        <Flex direction="column" gapY="3">
+        <Flex direction="column" gapY="4">
             <Card mt="4">
                 <Grid columns="9" gap="3" p="3" pb="5" pt="5">
                     {tones.map((tone, rowIndex) => (
@@ -140,7 +175,7 @@ export default function NoteGrid() {
                 </Card>
             )}
 
-            <Flex direction="row" gapX="3">
+            <Flex direction="row" gapX="4">
                 <Box width="25%">
                     <Card >
                         <Flex direction="column" gapY="4">
@@ -148,6 +183,10 @@ export default function NoteGrid() {
                             <DurationSlider duration={duration} onDurationChange={handleDurationChange}/>
                             <Button>Pause</Button>
                             <Button onClick={() => emptyList()} disabled={selectedTones.length === 0}>Remove All</Button>
+
+                            <Button disabled={selectedTones.length === 0}
+                                    onClick={() => exportMelody()}>Export</Button>
+
                             <Button onClick={() => submitComposition()} disabled={selectedTones.length === 0 || isSubmitting}>
                                 {isSubmitting ? 'Submitting...' : 'Submit ✅'}
                             </Button>
@@ -155,7 +194,9 @@ export default function NoteGrid() {
                     </Card>
                 </Box>
 
-                <Box width="75%">
+                <Box width="75%"
+                     onDragOver={handleDragOver}
+                     onDrop={handleDrop}>
                     <Card>
                         <AnimatePresence>
                             {selectedTones.length > 0 && (
