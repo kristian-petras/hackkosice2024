@@ -1,9 +1,9 @@
-    import {Button, Container, Box, Flex, Heading, Text, Card} from '@radix-ui/themes';
+    import {Button, Container, Box, Flex, Heading, Text, Card, Link} from '@radix-ui/themes';
     import {
         BrowserRouter as Router,
         Routes,
         Route,
-        Link
+        Link as RLink
     } from "react-router-dom";
     import NoteGrid from "./NoteGrid";
     import T2VForm from "./T2VForm";
@@ -37,9 +37,15 @@
                             <Heading>B/S/H/</Heading>
                         </Box>
                         <Flex direction="row" gapX="5">
-                            <Link to="/" weight="medium">Composer</Link>
-                            <Link to="/t2s" weight="medium">Text to Voice</Link>
-                            <Link to="/playFromFile" weight="medium">Play from file</Link>
+                            <Link asChild weight="medium">
+                                <RLink to="/" weight="medium">Composer</RLink>
+                            </Link>
+                            <Link asChild weight="medium">
+                                <RLink to="/t2s" weight="medium">Text to Voice</RLink>
+                            </Link>
+                            <Link asChild weight="medium">
+                                <RLink to="/playFromFile" weight="medium">Play from file</RLink>
+                            </Link>
                         </Flex>
                     </Flex>
                 </Card>
