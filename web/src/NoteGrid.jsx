@@ -9,7 +9,7 @@ const DurationSlider = ({ duration, onDurationChange }) => {
 
     return (
         <Flex direction="column" gap="2">
-            <Text>Duration (s): {duration / 100}</Text>
+            <Text>Duration: {duration / 100}s</Text>
             <Slider
                 min={1}
                 max={100}

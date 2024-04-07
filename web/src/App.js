@@ -112,8 +112,11 @@
 
     const T2S = () => (
         <main>
-            <Container size="4" mb="5">
-                <Heading as="h1" size="8">Text to speech</Heading>
+            <Container size="4">
+                <Heading as="h1" size="8" mb="3">Text to Voice</Heading>
+                <Text>
+                    Lorem ipsum description...
+                </Text>
             </Container>
 
             <Container>
