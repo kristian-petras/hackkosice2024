@@ -46,7 +46,7 @@ export default function NoteGrid() {
         const pointsJson = selectedTones.map((tone) => {
             const [note, octa, color] = tone.className.split("-");
 
-            return { "note": note, "octave": parseInt(octa), "duration": 100 };
+            return { "note": note, "octave": parseInt(octa), "duration": 1 };
         });
 
 

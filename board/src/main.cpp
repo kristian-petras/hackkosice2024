@@ -40,7 +40,7 @@ uint16_t frequencies[BUFFER_SIZE];
 uint16_t durations[BUFFER_SIZE];
 
 void loop() {
-    Talkie voice; 
+    Talkie voice;
     // waiting for command
     Serial.println("Waiting for command...");
     uint32_t command = read_command();
@@ -55,8 +55,8 @@ void loop() {
 
     //Part of code, that has emotional damage when called from any other place
     const char* message = "PETO EDO SIMON TINO";
-    for(int i = 0; message[i] != '\0'; i++) {
-        switch(message[i]) {
+    for (int i = 0; message[i] != '\0'; i++) {
+        switch (message[i]) {
         case 'A': voice.say(spa_A); break;
         case 'B': voice.say(spa_B); break;
         case 'C': voice.say(spa_C); break;
@@ -85,5 +85,5 @@ void loop() {
         case 'Z': voice.say(spa_Z); break;
         default: Serial.println("Character not supported."); break;
         }
-  }
+    }
 }
