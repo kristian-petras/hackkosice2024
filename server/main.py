@@ -1,7 +1,7 @@
 import serial
 import uvicorn
 from fastapi import FastAPI, UploadFile
-from enum import Enum
+from enum import Enum, IntEnum
 from dataclasses import dataclass
 from uuid import UUID, uuid4 as getId
 from pydantic import BaseModel
@@ -27,9 +27,10 @@ NOTES = {
     "B": [ 30.87, 61.74, 123.47, 246.94, 493.88, 987.77, 1975.53, 3951, 7902.13, ],
 }
 
-CHUNK_SIZE = 16 * 4
+NOTE_POINT_SIZE = 4
+CHUNK_SIZE = 16 * NOTE_POINT_SIZE
 
-class CommandType(Enum):
+class CommandType(IntEnum):
     FreqsFromSerial = 0
     TextToSpeech = 1
 
@@ -76,6 +77,27 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+def writeCommand(commandType: CommandType, unitNoteLength: int, payload: bytes):
+    payloadSize = (len(payload) // NOTE_POINT_SIZE).to_bytes(4)
+
+    ser.write(int(commandType).to_bytes())
+    ser.write(unitNoteLength.to_bytes(2))
+    ser.write(payloadSize)
+
+    i = 0
+    while True:
+        ser.write(payload[i:i+CHUNK_SIZE])
+
+        time.sleep(0.1)
+
+        if len(payload) - i >= CHUNK_SIZE:
+            i += CHUNK_SIZE
+        else:
+            break
+
+    if i < len(payload):
+        ser.write(payload[i:])        
+
 def freqsToBytes(freqs) -> bytes:
     arrOfArrs = list(map(lambda x: int(x[0]).to_bytes(2) + x[1].to_bytes(2), freqs))
 
@@ -96,15 +118,10 @@ def pointFromModel(model: PointModel) -> SoundPoint:
 async def play_composition(composition: CompositionModel):
     parsed = list(map(pointFromModel, composition.points))
 
-    freqs = [(x.sound.frequency, x.sound.duration * 1000) for x in parsed]
+    freqs = [(x.sound.frequency, x.sound.duration) for x in parsed]
     
     byteS = freqsToBytes(freqs)
-    command = (len(byteS)//4).to_bytes(4)
-    print(command)
-    print(byteS)
-    ser.write(command)
-    ser.write(byteS)
-
+    writeCommand(CommandType.FreqsFromSerial, 300, byteS)
 
     return composition
 
@@ -116,23 +133,7 @@ async def create_upload_file(file: UploadFile | None = None):
     freqs = extract_frequencies(file.file)
 
     byteS = freqsToBytes(freqs)
-    command = (len(byteS)//4).to_bytes(4)
-
-    print(freqs)
-
-    ser.write(command)
-
-    i = 0
-    while True:
-        ser.write(byteS[i:i+CHUNK_SIZE])
-        time.sleep(0.1)
-        if len(byteS) - i >= CHUNK_SIZE:
-            i += CHUNK_SIZE
-        else:
-            break
-
-    if i < len(byteS):
-        ser.write(byteS[i:])        
+    writeCommand(CommandType.FreqsFromSerial, 50, byteS)
 
     return { "filename": file.filename }
 
