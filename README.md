@@ -22,11 +22,30 @@ In the next part, we recommend displaying all important shields for your project
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![first-timers-only Friendly](https://img.shields.io/badge/first--timers--only-friendly-blue.svg)](http://www.firsttimersonly.com/)
 
+#Inspiration
+Not everyone has access to a modern computer. But everyone should have access to music. Sometimes you just want to listen to some music on your STM32 microcontroller equipped with a piezo buzzer. We are passionate about challanges which force us to find an alternative ways, paths full of trial and error. Looking for making the most out of embedded hardware.
 
+#What it does
+Audio player board with TTS integration with an efficient hardware implementation and intuitive software user interface, consisting of an polished app written in React. Hardware user interface is utilizing 7 segment display with animations and leds for additional feedback for the user.
 
-A quick short description of what this project is about. It should be explained in
-3 - 4 four sentences to catch the eye of the viewer of the Githu repository. 
-It can contain some technologies, and what is the outcome of the project.
+#How we built it
+We opted to use popular Arduino framework as a base for our implementation of all the challange tasks. Based on processor speed and memory restrictions focused, to get the best possible quality sound reproduction. For that we created a pipeline of steps with backend python api pushing the audio data over serial line to the devBoard.
+
+#Challenges we ran into
+We ran into multiple challanges First of the challange was utilizing simple piezo element with it's native limited frequency range that required and creative thinking to implement audio playback and TTS with the most quality. Second challenge was implementing an effective way of delivering preprocessed audio data as a stream of blocks and buffering to fit into hw limitations of speed and size of memory.
+
+#Accomplishments that we're proud of
+We managed our time schedule and lack of sleep to implement all of the challange tasks.
+
+#What we learned
+We learned a lot about physics behing audio and how the sound waves can be created and modified. We also learned how to effectively find a way to deliver data using limited channels such as serial interface.
+
+#What's next for Kompót
+We are prepared to improve ourselves.
+
+Built With
+c,platformio,python,react
+
 
 ![image](.template_images/Mid.png)
 
