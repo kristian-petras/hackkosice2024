@@ -25,8 +25,8 @@ void read_data(uint16_t* frequencies, uint16_t* durations, uint16_t start, uint1
                 uint32_t second_frequency = Serial.read();
                 uint32_t first_duration = Serial.read();
                 uint32_t second_duration = Serial.read();
-                frequencies[i] = second_frequency | (first_frequency << 8);
-                durations[i] = second_duration | (first_duration << 8);
+                frequencies[i + start] = second_frequency | (first_frequency << 8);
+                durations[i + start] = second_duration | (first_duration << 8);
             }
             return;
         }
