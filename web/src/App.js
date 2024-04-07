@@ -1,4 +1,4 @@
-    import {Button, Container, Box, Flex, Heading, Text, Card, Link} from '@radix-ui/themes';
+    import {Button, Container, Box, Flex, Heading, Text, Card, Link, Grid} from '@radix-ui/themes';
     import {
         BrowserRouter as Router,
         Routes,
@@ -39,16 +39,16 @@
                         </Box>
                         <Flex direction="row" gapX="5">
                             <Link asChild weight="medium">
-                                <RLink to="/" weight="medium">Composer</RLink>
+                                <RLink to="/" weight="medium">Composer 🎼</RLink>
                             </Link>
                             <Link asChild weight="medium">
-                                <RLink to="/t2s" weight="medium">Text to Voice</RLink>
+                                <RLink to="/t2s" weight="medium">Text to Voice 🛠</RLink>
                             </Link>
                             <Link asChild weight="medium">
-                                <RLink to="/playFromFile" weight="medium">Play from file</RLink>
+                                <RLink to="/playFromFile" weight="medium">Play from file 🎧</RLink>
                             </Link>
                             <Link asChild weight="medium">
-                                <RLink to="/settings" weight="medium">Device️</RLink>
+                                <RLink to="/settings" weight="medium">Device️ 🎤</RLink>
                             </Link>
                         </Flex>
                     </Flex>
@@ -76,7 +76,7 @@
     const Composer = () => (
         <main>
             <Container size="4">
-                <Heading as="h1" size="8" mb="3">Composer🎼</Heading>
+                <Heading as="h1" size="8" mb="3">Composer 🎼</Heading>
                 <Text>
                     The composer allows users to create musical compositions by selecting notes, octaves, and specifying their duration. It presents a grid of buttons representing different notes and octaves. Users can click on these buttons to add musical elements to their composition. The composition can then be submitted for playback.
                 </Text>
@@ -91,12 +91,17 @@
     const Settings = () => (
         <main>
             <Container size="4">
-                <Heading as="h1" size="8" mb="3">Device🛠️</Heading>
+                <Heading as="h1" size="8" mb="3">Device 🛠️</Heading>
                 <Flex direction="column" gapY="3">
                     <Text>
                         Lorem ipsum...
                     </Text>
                 </Flex>
+            </Container>
+            <Container size="4">
+                <Card mt="3">
+
+                </Card>
             </Container>
         </main>
     )
@@ -104,7 +109,7 @@
     const PlayFromFile = () => (
         <main>
             <Container size="4">
-                <Heading as="h1" size="8" mb="3">Play from File🎧</Heading>
+                <Heading as="h1" size="8" mb="3">Play from File 🎧</Heading>
                 <Flex direction="column" gapY="3">
                     <Text>
                         This component provides an easy way for users to select an audio file from their device for further processing or playback. It presents a file selection input field where users can browse their local files to choose the audio file they wish to work with.
@@ -120,7 +125,7 @@
     const T2S = () => (
         <main>
             <Container size="4">
-                <Heading as="h1" size="8" mb="3">Text to Voice🎤</Heading>
+                <Heading as="h1" size="8" mb="3">Text to Voice 🎤</Heading>
                 <Flex direction="column" gapY="3">
                 <Text>
                     This tool is a web-based form designed to convert text input into spoken words, allowing users to generate audio from written content. The form consists of a text input area where users can type or paste the text they want to convert. Below the text input area, there is a button labeled "Speak🗣️". Clicking this button initiates the conversion process.
