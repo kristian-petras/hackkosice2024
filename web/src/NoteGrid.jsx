@@ -185,7 +185,7 @@ export default function NoteGrid() {
                             <Button onClick={() => emptyList()} disabled={selectedTones.length === 0}>Remove All</Button>
 
                             <Button disabled={selectedTones.length === 0}
-                                    onClick={() => exportMelody()}>Export</Button>
+                                    onClick={() => exportMelody()}>Export💾</Button>
 
                             <Button onClick={() => submitComposition()} disabled={selectedTones.length === 0 || isSubmitting}>
                                 {isSubmitting ? 'Submitting...' : 'Submit ✅'}

@@ -7,6 +7,7 @@
     } from "react-router-dom";
     import NoteGrid from "./NoteGrid";
     import T2VForm from "./T2VForm";
+    import PlayerInput from "./PlayerInput";
 
     export default function MyApp() {
       return (
@@ -76,36 +77,18 @@
         </main>
     )
 
-    async function submitFile(filePicker) {
-      console.log("banan");
-      // Construct a FormData instance
-      const formData = new FormData();
-
-      // Add a file
-      const selection = filePicker.files;
-      if (selection.length > 0) {
-        console.log("jahoda");
-        const file = selection[0];
-        formData.append("file", file);
-      }
-
-      try {
-        const response = await fetch("http://127.0.0.1:8000/uploadfile/", {
-          method: "POST",
-          // Set the FormData instance as the request body
-          body: formData,
-        });
-        console.log(await response.json());
-      } catch (e) {
-        console.error(e);
-      }
-    }
-
     const PlayFromFile = () => (
         <main>
-            <Container size="4" mb="5">
-                <Heading as="h1" size="8">Play from file</Heading>
-                <input type="file" id="soundFileInput" onChange={ (event) => submitFile(event.target) }/>
+            <Container size="4">
+                <Heading as="h1" size="8" mb="3">Play from file</Heading>
+                <Flex direction="column" gapY="3">
+                    <Text>
+                        Lorem ipsum...
+                    </Text>
+                </Flex>
+            </Container>
+            <Container>
+                <PlayerInput/>
             </Container>
         </main>
     )
