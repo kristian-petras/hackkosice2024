@@ -55,6 +55,7 @@ void setup() {
     init_led();
     init_button();
     init_buzzer();
+    display.clear();
 }
 
 uint16_t frequencies[BUFFER_SIZE];
@@ -92,6 +93,25 @@ void play_sound(uint16_t unitNoteDuration, uint16_t size) {
 
     display.clear();
     display.update();
+
+    /*     int speed = 100;
+        while (!is_button_pressed(button_3))
+        {
+            display.set(speed);
+            display.setDot(1, true);
+            display.update();
+            if (is_button_pressed(button_1)) {
+                speed = speed - 10;
+            }
+            else if (is_button_pressed(button_2)) {
+                speed = speed + 10;
+            }
+        }
+
+        int tempo = 500 / (unitNoteDuration * speed);
+
+        display.clear();
+        display.update(); */
     play(frequencies, durations, size, unitNoteDuration);
 }
 
