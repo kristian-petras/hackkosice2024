@@ -104,6 +104,7 @@ export default function NoteGrid() {
 
     const [showNotification, setShowNotification] = useState(false);
     const [notificationValue, setNotificationValue] = useState("Something wrong 😭")
+    const [notificationColor, setNotificationColor] = useState({ backgroundColor: "color(display-p3 0.996 0.282 0.176 / 0.148)", border: "none"})
 
     const submitComposition = () => {
         setIsSubmitting(true); // Set loading state to true when submitting
@@ -140,12 +141,14 @@ export default function NoteGrid() {
                 console.log('Response:', data);
                 setShowNotification(true)
                 setNotificationValue("Playing!😙")
+                setNotificationColor({ backgroundColor: "color(display-p3 0.51 0.996 0.557 / 0.169);", border: "none"})
                 setIsSubmitting(false);
             })
             .catch(error => {
                 console.error('Error:', error);
                 setShowNotification(true)
                 setNotificationValue("Error!😭")
+                setNotificationColor({ backgroundColor: "color(display-p3 0.996 0.282 0.176 / 0.148)", border: "none"})
                 setIsSubmitting(false);
             });
     };
@@ -170,7 +173,7 @@ export default function NoteGrid() {
             </Card>
 
             {showNotification && (
-                <Card>
+                <Card style={notificationColor}>
                     <Text>{notificationValue}</Text>
                 </Card>
             )}

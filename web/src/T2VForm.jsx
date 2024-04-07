@@ -1,4 +1,4 @@
-import {Button, Card, Flex, Text, TextArea} from "@radix-ui/themes";
+import {Button, Card, Flex, Text, TextArea, Theme} from "@radix-ui/themes";
 import React, {useState} from "react";
 
 export default function T2VForm() {
@@ -10,6 +10,7 @@ export default function T2VForm() {
 
     const [showNotification, setShowNotification] = useState(false);
     const [notificationValue, setNotificationValue] = useState("Something wrong 😭")
+    const [notificationColor, setNotificationColor] = useState({ backgroundColor: "color(display-p3 0.996 0.282 0.176 / 0.148)", border: "none"})
 
     const submitTextToVoice = () => {
         const url = 'http://127.0.0.1:8000/say_text';
@@ -34,11 +35,13 @@ export default function T2VForm() {
             .then(data => {
                 console.log('Response:', data);
                 setShowNotification(true)
+                setNotificationColor({ backgroundColor: "color(display-p3 0.51 0.996 0.557 / 0.169);", border: "none"})
                 setNotificationValue("Playing!😙")
             })
             .catch(error => {
                 console.error('Error:', error);
                 setShowNotification(true)
+                setNotificationColor({ backgroundColor: "color(display-p3 0.996 0.282 0.176 / 0.148)", border: "none"})
                 setNotificationValue("Error!😭")
             });
     };
@@ -47,7 +50,7 @@ export default function T2VForm() {
     return(
         <>
             {showNotification && (
-                <Card mt="3">
+                <Card mt="3" style={notificationColor}>
                     <Text>{notificationValue}</Text>
                 </Card>
             )}
