@@ -5,13 +5,13 @@ void init_buzzer() {
     pinMode(BUZZER, OUTPUT);
 }
 
-void tone(int frequency, int duration) {
+void tone(uint16_t frequency, uint16_t duration) {
     tone(BUZZER, frequency, duration);
 }
 
-void play(int *frequencies, int pause, int size) {
-    for (int i = 0; i < size; i++) {
-        tone(frequencies[i], pause);
-        delay(pause);
+void play(uint16_t* frequencies, u_int16_t* durations, size_t size) {
+    for (size_t i = 0; i < size; i++) {
+        tone(frequencies[i], durations[i]);
+        delay(durations[i]);
     }
 }
