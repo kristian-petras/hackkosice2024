@@ -58,9 +58,9 @@ class PointModel(BaseModel):
 class CompositionModel(BaseModel):
     points: List[PointModel]
 
-# ser = serial.Serial('/dev/cu.usbmodem21203', 115200)
+ser = serial.Serial('/dev/cu.usbmodem21203', 115200)
 # ser = serial.Serial('/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_0670FF485251667187121236-if02', 9600)
-ser = serial.Serial('/dev/ttyACM0', 115200)
+#ser = serial.Serial('/dev/ttyACM0', 115200)
 app = FastAPI()
 
 origins = [
@@ -111,6 +111,16 @@ def pointFromModel(model: PointModel) -> SoundPoint:
     soundPoint = SoundPoint(sound)
 
     return soundPoint
+
+@app.post("/serial")
+async def serial_endpoint(endpoint: str):
+    global ser
+    try:
+        new_ser = serial.Serial(endpoint, 115200)
+        ser.close()
+        ser = new_ser
+    except Exception as e:
+        return {"Failed to open serial point on new ": str(e)}
 
 @app.post("/playComposition/")
 async def play_composition(composition: CompositionModel):
