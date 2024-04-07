@@ -82,6 +82,7 @@ export default function NoteGrid() {
             points: pointsJson
         };
 
+        console.log(data);
         fetch(url, {
             method: 'POST',
             headers: {
@@ -94,7 +95,7 @@ export default function NoteGrid() {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
-                console.log(pointsJson);
+
                 return response.json();
             })
             .then(data => {
@@ -151,9 +152,10 @@ export default function NoteGrid() {
                                     >
                                         <Flex direction="row" gap="3" wrap="wrap" pb="2" pt="3" >
                                             {selectedTones.map((tone, toneIndex) => {
-                                                const [note, octa, color] = tone.className.split("-");
+                                                const [note, octa, color, _duration] = tone.className.split("-");
+                                                const _width = 74 + parseInt(_duration ) / 10;
                                                 return (
-                                                    <Button key={toneIndex} variant="soft" color={color} onClick={() => removeFromList(toneIndex)} style={{ width: '75px' }}>
+                                                    <Button key={toneIndex} variant="soft" color={color} onClick={() => removeFromList(toneIndex)} style={{ width: `${_width}px` }}>
                                                         {note + " - " + octa}
                                                     </Button>
                                                 );
