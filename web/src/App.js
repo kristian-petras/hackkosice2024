@@ -51,12 +51,15 @@
         <footer className="footer">
             <Container align="center" size="4" mt="8">
                 <Flex
-                    direction="row"
+                    direction="column"
                     justify="center"
                     align="center"
                     mb="4"
                 >
-                    <Text>Hack Košice &copy; {new Date().getFullYear()}</Text>
+
+                <Text>Hack Košice 2024 - bsh-challenge</Text>
+                <Text>Peter Grocký - Edo Hopfer - Kristián Petráš - Simon Soroka</Text>
+
                 </Flex>
             </Container>
         </footer>
@@ -83,7 +86,7 @@
                 <Heading as="h1" size="8" mb="3">Play from file</Heading>
                 <Flex direction="column" gapY="3">
                     <Text>
-                        Lorem ipsum...
+                        This component provides an easy way for users to select an audio file from their device for further processing or playback. It presents a file selection input field where users can browse their local files to choose the audio file they wish to work with.
                     </Text>
                 </Flex>
             </Container>
