@@ -1,6 +1,3 @@
-
-
-
 export default function PlayerInput() {
     async function submitFile(filePicker) {
         console.log("banan");
