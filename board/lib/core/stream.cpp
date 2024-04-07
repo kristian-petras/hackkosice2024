@@ -20,6 +20,7 @@ void read_data(uint16_t* frequencies, uint16_t* durations, uint16_t size) {
     while (true)
     {
         if (Serial.available() >= size * 4) {
+            Serial.printf("hura");
             for (size_t i = 0; i < size; i++) {
                 uint32_t first_frequency = Serial.read();
                 uint32_t second_frequency = Serial.read();

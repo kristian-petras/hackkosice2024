@@ -10,6 +10,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi import Request
 from wav import extract_frequencies
 
+# TODO: we convert the float frequencies into ints anyway, we can save resources by having them as ints even here
 NOTES = {
     "C": [16.35, 32.7, 65.41, 130.81, 261.63, 523.25, 1046.5, 2093, 4186, ],
     "C#": [17.32, 34.65, 69.3, 138.59, 277.18, 554.37, 1108.73, 2217.46, 4434.92,],
@@ -54,7 +55,7 @@ class CompositionModel(BaseModel):
 
 
 # ser = serial.Serial('/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_0670FF485251667187121236-if02', 9600)
-# ser = serial.Serial('/dev/ttyACM0', 9600)
+ser = serial.Serial('/dev/ttyACM0', 115200)
 app = FastAPI()
 
 origins = [
@@ -69,6 +70,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+def freqsToBytes(freqs) -> bytes:
+    arrOfArrs = list(map(lambda x: int(x[0]).to_bytes(2) + x[1].to_bytes(2), freqs))
+
+    together = []
+    for arr in arrOfArrs:
+        together += arr
+
+    return bytes(together)
+
 def pointFromModel(model: PointModel) -> SoundPoint:
     soundFrequency = NOTES[model.note][model.octave]
     sound = Sound(model.duration, soundFrequency)
@@ -80,8 +90,15 @@ def pointFromModel(model: PointModel) -> SoundPoint:
 async def play_composition(composition: CompositionModel):
     parsed = list(map(pointFromModel, composition.points))
 
-    freqs = [(x.sound.frequency, x.sound.duration) for x in parsed]
-    print(freqs) 
+    freqs = [(x.sound.frequency, x.sound.duration * 1000) for x in parsed]
+    
+    byteS = freqsToBytes(freqs)
+    command = (len(byteS)//4).to_bytes(4)
+    print(command)
+    print(byteS)
+    ser.write(command)
+    ser.write(byteS)
+
 
     return composition
 
@@ -91,7 +108,13 @@ async def create_upload_file(file: UploadFile | None = None):
         return {"message": "No upload file sent"}
 
     freqs = extract_frequencies(file.file)
-    print(freqs)
+
+    byteS = freqsToBytes(freqs)
+    command = (len(byteS)//4).to_bytes(4)
+    print(command)
+    print(byteS)
+    ser.write(command)
+    ser.write(byteS)
 
     return { "filename": file.filename }
 
