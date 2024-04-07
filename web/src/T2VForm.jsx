@@ -38,7 +38,7 @@ export default function T2VForm() {
 
 
     return(
-        <Card mt="3">
+        <Card mt="4">
             <Flex direction="column" gapY="4" pt="2" pb="3" align="center">
                 <TextArea size="3" style={{ width: "100%", marginBottom: "40px", height: "160px" }} color="gray" variant="soft" placeholder="Hello World!" onChange={saveText}/>
                 <Button style={{ width: "350px" }} onClick={ () => submitTextToVoice() }>Speak🗣️</Button>

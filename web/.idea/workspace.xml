@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="21a5e67a-8db7-4b23-bc1d-fbeb4599d576" name="Changes" comment="feat: text to voice components">
+    <list default="true" id="21a5e67a-8db7-4b23-bc1d-fbeb4599d576" name="Changes" comment="feat: text to voice fetch">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/NoteGrid.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/NoteGrid.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/T2VForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/T2VForm.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -73,7 +75,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1712410728241</updated>
-      <workItem from="1712410731171" duration="34110000" />
+      <workItem from="1712410731171" duration="36879000" />
     </task>
     <task id="LOCAL-00001" summary="init: basic web app">
       <created>1712423071382</created>
@@ -145,7 +147,14 @@
       <option name="project" value="LOCAL" />
       <updated>1712469435115</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="feat: text to voice fetch">
+      <created>1712470138496</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1712470138496</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -173,6 +182,7 @@
     <MESSAGE value="feat: duration width in timeline" />
     <MESSAGE value="feat: minnor changes" />
     <MESSAGE value="feat: text to voice components" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: text to voice components" />
+    <MESSAGE value="feat: text to voice fetch" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: text to voice fetch" />
   </component>
 </project>

@@ -1,6 +1,6 @@
+import React, { useState } from "react";
 import { Button, Card, Flex, Grid, Heading, Text, Box, Slider } from "@radix-ui/themes";
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import {motion, AnimatePresence, delay} from "framer-motion";
 
 const DurationSlider = ({ duration, onDurationChange }) => {
     const handleSliderChange = (value) => {
@@ -39,15 +39,12 @@ export default function NoteGrid() {
         { note: 'B', color: 'pink' }
     ];
 
-    // Initialize duration with a default value
     const [duration, setDuration] = useState([25]);
-
     const handleDurationChange = (value) => {
         setDuration(value);
     };
 
     const [selectedTones, setSelectedTones] = useState([]);
-
     const handleButtonClick = (className, id, duration) => {
         if (duration === undefined) {
             duration = 25
@@ -68,13 +65,18 @@ export default function NoteGrid() {
         });
     };
 
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const [showNotification, setShowNotification] = useState(false);
+    const [notificationValue, setNotificationValue] = useState("Something wrong 😭")
+
     const submitComposition = () => {
+        setIsSubmitting(true); // Set loading state to true when submitting
         const url = 'http://127.0.0.1:8000/playComposition';
         const origin = 'http://127.0.0.1:3000'; // Client origin
 
         const pointsJson = selectedTones.map((tone) => {
             const [note, octa, color, _duration] = tone.className.split("-");
-
             return { "note": note, "octave": parseInt(octa), "duration": parseInt(_duration)};
         });
 
@@ -82,7 +84,7 @@ export default function NoteGrid() {
             points: pointsJson
         };
 
-        console.log(data);
+
         fetch(url, {
             method: 'POST',
             headers: {
@@ -92,23 +94,30 @@ export default function NoteGrid() {
             body: JSON.stringify(data)
         })
             .then(response => {
+                setIsSubmitting(false); // Reset loading state when response is received
+                setShowNotification(true)
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
-
                 return response.json();
             })
             .then(data => {
                 console.log('Response:', data);
+                setShowNotification(true)
+                setNotificationValue("Playing!😙")
+                setIsSubmitting(false);
             })
             .catch(error => {
                 console.error('Error:', error);
+                setShowNotification(true)
+                setNotificationValue("Error!😭")
+                setIsSubmitting(false);
             });
     };
 
     return (
-        <>
-            <Card mb="4" mt="3">
+        <Flex direction="column" gapY="3">
+            <Card mt="4">
                 <Grid columns="9" gap="3" p="3" pb="5" pt="5">
                     {tones.map((tone, rowIndex) => (
                         octaves.map((item, colIndex) => {
@@ -125,6 +134,12 @@ export default function NoteGrid() {
                 </Grid>
             </Card>
 
+            {showNotification && (
+                <Card>
+                    <Text>{notificationValue}</Text>
+                </Card>
+            )}
+
             <Flex direction="row" gapX="3">
                 <Box width="25%">
                     <Card >
@@ -133,7 +148,9 @@ export default function NoteGrid() {
                             <DurationSlider duration={duration} onDurationChange={handleDurationChange}/>
                             <Button>Pause</Button>
                             <Button onClick={() => emptyList()} disabled={selectedTones.length === 0}>Remove All</Button>
-                            <Button onClick={() => submitComposition()} disabled={selectedTones.length === 0}>Submit ✅</Button>
+                            <Button onClick={() => submitComposition()} disabled={selectedTones.length === 0 || isSubmitting}>
+                                {isSubmitting ? 'Submitting...' : 'Submit ✅'}
+                            </Button>
                         </Flex>
                     </Card>
                 </Box>
@@ -178,6 +195,6 @@ export default function NoteGrid() {
                     </Card>
                 </Box>
             </Flex>
-        </>
+        </Flex>
     )
 }

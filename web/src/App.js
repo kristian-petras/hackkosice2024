@@ -35,7 +35,7 @@
                         <Box>
                             <Heading>B/S/H/</Heading>
                         </Box>
-                        <Flex direction="row" gapX="3">
+                        <Flex direction="row" gapX="5">
                             <Link to="/" weight="medium">Composer</Link>
                             <Link to="/t2s" weight="medium">Text to Voice</Link>
                             <Link to="/playFromFile" weight="medium">Play from file</Link>
@@ -114,9 +114,19 @@
         <main>
             <Container size="4">
                 <Heading as="h1" size="8" mb="3">Text to Voice</Heading>
+                <Flex direction="column" gapY="3">
                 <Text>
-                    Lorem ipsum description...
+                    This tool is a web-based form designed to convert text input into spoken words, allowing users to generate audio from written content. The form consists of a text input area where users can type or paste the text they want to convert. Below the text input area, there is a button labeled "Speak🗣️". Clicking this button initiates the conversion process.
                 </Text>
+
+                <Text>
+                    Once the user clicks the "Speak🗣️" button, the text entered in the input area is sent to a server for processing. The server then generates an audio representation of the text, which is returned to the user. This audio can be played back through the user's device speakers, allowing them to hear the spoken version of the text they provided.
+                </Text>
+
+                <Text>
+                    The form provides a simple and intuitive interface for users to convert their text into speech. It can be useful for various purposes such as generating audio versions of documents, reading aloud text for accessibility purposes, or experimenting with text-to-speech technology.
+                </Text>
+                </Flex>
             </Container>
 
             <Container>
