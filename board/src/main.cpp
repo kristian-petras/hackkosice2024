@@ -112,6 +112,7 @@ void play_sound(uint16_t unitNoteDuration, uint16_t size) {
 
         display.clear();
         display.update(); */
+
     play(frequencies, durations, size, unitNoteDuration);
 }
 
