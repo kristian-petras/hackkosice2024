@@ -172,6 +172,9 @@ void loop() {
                 Serial.printf("Character: %c\n", character);
                 SAY_CHARACTER(to_uppercase(character));
             }
+            while (Serial.available()) {
+                Serial.read();
+            }
             break;
         }
     }
@@ -189,6 +192,7 @@ void loop() {
             if (selected_character_index == SEGMENT_COUNT - 1) {
                 display.show(1000);
                 for (int i = 0; i < SEGMENT_COUNT; i++) {
+                    Serial.printf("Character: %c\n", display_data[i]);
                     SAY_CHARACTER(display_data[i]);
                     display_data[i] = ' ';
                     display.set(display_data);
