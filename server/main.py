@@ -3,6 +3,7 @@ import uvicorn
 from fastapi import FastAPI, UploadFile
 from enum import Enum, IntEnum
 from dataclasses import dataclass
+import dataclasses
 from uuid import UUID, uuid4 as getId
 from pydantic import BaseModel
 from typing import List
@@ -10,6 +11,13 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi import Request
 from wav import extract_frequencies
 import time
+import json
+
+class EnhancedJSONEncoder(json.JSONEncoder):
+        def default(self, o):
+            if dataclasses.is_dataclass(o):
+                return dataclasses.asdict(o)
+            return super().default(o)
 
 # TODO: we convert the float frequencies into ints anyway, we can save resources by having them as ints even here
 NOTES = {
@@ -40,25 +48,28 @@ class Instrument(Enum):
 @dataclass
 class Sound:
     duration: int
-    frequency: float
+    frequency: float 
 
 @dataclass
 class SoundPoint:
-    id: UUID
+    # id: UUID
     sound: Sound
 
 @dataclass
-class Composition:
-    points: List[SoundPoint]
-
 class PointModel(BaseModel):
     note: str
     octave: int
     duration: int
 
+@dataclass
 class CompositionModel(BaseModel):
     points: List[PointModel]
 
+def serializeComposition(composition):
+    filename = f"compositions/composition-{time.time()}.json"
+
+    with open(filename, 'w+') as f:
+        f.write(json.dumps(composition, cls=EnhancedJSONEncoder))
 
 
 # ser = serial.Serial('/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_0670FF485251667187121236-if02', 9600)
@@ -110,18 +121,20 @@ def freqsToBytes(freqs) -> bytes:
 def pointFromModel(model: PointModel) -> SoundPoint:
     soundFrequency = NOTES[model.note][model.octave]
     sound = Sound(model.duration, soundFrequency)
-    soundPoint = SoundPoint(getId(), sound)
+    soundPoint = SoundPoint(sound)
 
     return soundPoint
 
 @app.post("/playComposition/")
 async def play_composition(composition: CompositionModel):
     parsed = list(map(pointFromModel, composition.points))
+    # print(json.dumps(parsed, cls=EnhancedJSONEncoder))
+    serializeComposition(composition)
 
     freqs = [(x.sound.frequency, x.sound.duration) for x in parsed]
-    
+
     byteS = freqsToBytes(freqs)
-    writeCommand(CommandType.FreqsFromSerial, 300, byteS)
+    writeCommand(CommandType.FreqsFromSerial, 1, byteS)
 
     return composition
 
@@ -131,6 +144,7 @@ async def create_upload_file(file: UploadFile | None = None):
         return {"message": "No upload file sent"}
 
     freqs = extract_frequencies(file.file)
+    print(freqs)
 
     byteS = freqsToBytes(freqs)
     writeCommand(CommandType.FreqsFromSerial, 50, byteS)
@@ -138,11 +152,9 @@ async def create_upload_file(file: UploadFile | None = None):
     return { "filename": file.filename }
 
 @app.post("/say_text/")
-async def say_text(text: str):
-    textBytes = text.encode()
+async def say_text(req: Request):
+    textBytes = await req.body()
     writeCommand(CommandType.TextToSpeech, 1, textBytes)
-
-    
 
 if __name__ == "__main__":
     uvicorn.run(app)
