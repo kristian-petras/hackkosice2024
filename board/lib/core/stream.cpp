@@ -1,9 +1,13 @@
 #include <stream.h>
 
 uint16_t read_command() {
-    if (Serial.available() >= 2) {
-        return Serial.read() | (Serial.read() << 8);
+    while (true)
+    {
+        if (Serial.available() >= 2) {
+            return Serial.read() | (Serial.read() << 8);
+        }
     }
+
     return 0;
 }
 
