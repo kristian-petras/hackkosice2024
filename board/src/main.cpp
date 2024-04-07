@@ -42,7 +42,7 @@
     case 'X': voice.sayQ(spa_X); break; \
     case 'Y': voice.sayQ(spa_Y); break; \
     case 'Z': voice.sayQ(spa_Z); break; \
-    case ' ': voice.sayQ(spa_SPACE); break; \
+    case ' ': voice.sayQ(spa_ESCAPE); break; \
     default: Serial.println("Character not supported."); break; \
     }
 
