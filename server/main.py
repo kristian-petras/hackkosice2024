@@ -137,6 +137,11 @@ async def create_upload_file(file: UploadFile | None = None):
 
     return { "filename": file.filename }
 
+@app.post("/say_text/")
+async def say_text(text: str):
+    textBytes = text.encode()
+    writeCommand(CommandType.TextToSpeech, 1, textBytes)
+
     
 
 if __name__ == "__main__":
