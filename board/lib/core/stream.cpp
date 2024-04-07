@@ -1,10 +1,41 @@
-#include <Arduino.h>
+#include <stream.h>
 
-u_int16_t read_command() {
+uint32_t read_command() {
+    while (true)
+    {
+        if (Serial.available() >= 4) {
+            uint32_t first = Serial.read();
+            uint32_t second = Serial.read();
+            uint32_t third = Serial.read();
+            uint32_t fourth = Serial.read();
+            uint32_t result = fourth | (third << 8) | (second << 16) | (first << 24);
+            return result;
+        }
+    }
+
     return 0;
 }
 
-void read_data(uint16_t* buffer, size_t size) {
+void read_data(uint16_t* frequencies, uint16_t* durations, uint16_t size) {
+    while (true)
+    {
+        if (Serial.available() >= size * 4) {
+            for (size_t i = 0; i < size; i++) {
+                uint32_t first_frequency = Serial.read();
+                uint32_t second_frequency = Serial.read();
+                uint32_t first_duration = Serial.read();
+                uint32_t second_duration = Serial.read();
+                frequencies[i] = second_frequency | (first_frequency << 8);
+                durations[i] = second_duration | (first_duration << 8);
+                Serial.printf("Received data (%d/%d):\n", i + 1, size);
+            }
+            return;
+        }
+    }
+
+}
+
+/* void read_data(uint16_t* buffer, size_t size) {
     if (Serial.available() >= 4) {
         uint16_t commandType = Serial.read() | (Serial.read() << 8);
         uint16_t numBlocks = 0; // Used only for specific commands
@@ -33,4 +64,4 @@ void read_data(uint16_t* buffer, size_t size) {
         }
         // Add delays or synchronization as needed
     }
-}
+} */
