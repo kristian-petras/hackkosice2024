@@ -56,7 +56,9 @@ c,platformio,python,react
 If your project is constructed out of multiple Repositories, you can specify them here:
 -->
 
-<!--## Documentation-->
+## Documentation
+
+![image](.Diagrams/Pipeline_DataStructure.png)
 
 <!--
 Documentation is a crucial part of every project, but also maybe during the hackathon, you did not have time to create it. We recommend coming back later and filling in this part, for example, with https://docs.github.com/en/communities/documenting-your-project-with-wikis/about-wikis
