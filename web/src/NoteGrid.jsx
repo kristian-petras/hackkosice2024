@@ -1,6 +1,26 @@
-import {Button, Card, Flex, Grid, Heading, Text, Box} from "@radix-ui/themes";
+import { Button, Card, Flex, Grid, Heading, Text, Box, Slider } from "@radix-ui/themes";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+
+const DurationSlider = ({ duration, onDurationChange }) => {
+    const handleSliderChange = (value) => {
+        onDurationChange(value);
+    };
+
+    return (
+        <Flex direction="column" gap="2">
+            <Text>Duration (s): {duration / 100}</Text>
+            <Slider
+                min={1}
+                max={100}
+                step={1}
+                defaultValue={[25]}
+                value={[duration]}
+                onValueChange={handleSliderChange}
+            />
+        </Flex>
+    );
+};
 
 export default function NoteGrid() {
     const octaves = [0, 1, 2, 3, 4, 5, 6, 7, 8];
@@ -19,11 +39,21 @@ export default function NoteGrid() {
         { note: 'B', color: 'pink' }
     ];
 
+    // Initialize duration with a default value
+    const [duration, setDuration] = useState([25]);
+
+    const handleDurationChange = (value) => {
+        setDuration(value);
+    };
+
     const [selectedTones, setSelectedTones] = useState([]);
 
-    const handleButtonClick = (className, id) => {
-        setSelectedTones([...selectedTones, { className, id }]);
-        console.log('Added tone:', className, 'with id:', id);
+    const handleButtonClick = (className, id, duration) => {
+        if (duration === undefined) {
+            duration = 25
+        }
+        setSelectedTones([...selectedTones, { className, id, duration }]);
+        console.log('Added tone:', className, 'with id:', id, 'Duration:', duration[0] * 10);
     };
 
     const emptyList = () => {
@@ -42,13 +72,11 @@ export default function NoteGrid() {
         const url = 'http://127.0.0.1:8000/playComposition';
         const origin = 'http://127.0.0.1:3000'; // Client origin
 
-
         const pointsJson = selectedTones.map((tone) => {
-            const [note, octa, color] = tone.className.split("-");
+            const [note, octa, color, _duration] = tone.className.split("-");
 
-            return { "note": note, "octave": parseInt(octa), "duration": 1 };
+            return { "note": note, "octave": parseInt(octa), "duration": parseInt(_duration)};
         });
-
 
         const data = {
             points: pointsJson
@@ -83,11 +111,11 @@ export default function NoteGrid() {
                 <Grid columns="9" gap="3" p="3" pb="5" pt="5">
                     {tones.map((tone, rowIndex) => (
                         octaves.map((item, colIndex) => {
-                            const className = `${tone.note}-${item}-${tone.color}`;
+                            const className = `${tone.note}-${item}-${tone.color}-${duration*10}`;
                             const id = `${tone.note}-${item}`;
                             return (
                                 <Button key={colIndex} variant="soft" color={tone.color}
-                                        onClick={() => handleButtonClick(className, id)}>
+                                        onClick={() => handleButtonClick(className, id, duration)}>
                                     {tone.note + " - " + item}
                                 </Button>
                             );
@@ -101,6 +129,7 @@ export default function NoteGrid() {
                     <Card >
                         <Flex direction="column" gapY="4">
                             <Heading as="h2" size="6" mb="2">Control Panel</Heading>
+                            <DurationSlider duration={duration} onDurationChange={handleDurationChange}/>
                             <Button>Pause</Button>
                             <Button onClick={() => emptyList()} disabled={selectedTones.length === 0}>Remove All</Button>
                             <Button onClick={() => submitComposition()} disabled={selectedTones.length === 0}>Submit ✅</Button>
@@ -124,7 +153,7 @@ export default function NoteGrid() {
                                             {selectedTones.map((tone, toneIndex) => {
                                                 const [note, octa, color] = tone.className.split("-");
                                                 return (
-                                                    <Button key={toneIndex} variant="soft" color={color} onClick={() => removeFromList(toneIndex)} style={{ width: '80px' }}>
+                                                    <Button key={toneIndex} variant="soft" color={color} onClick={() => removeFromList(toneIndex)} style={{ width: '75px' }}>
                                                         {note + " - " + octa}
                                                     </Button>
                                                 );
@@ -148,5 +177,5 @@ export default function NoteGrid() {
                 </Box>
             </Flex>
         </>
-    );
+    )
 }
