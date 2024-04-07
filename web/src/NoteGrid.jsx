@@ -108,7 +108,7 @@ export default function NoteGrid() {
 
     return (
         <>
-            <Card mb="4">
+            <Card mb="4" mt="3">
                 <Grid columns="9" gap="3" p="3" pb="5" pt="5">
                     {tones.map((tone, rowIndex) => (
                         octaves.map((item, colIndex) => {

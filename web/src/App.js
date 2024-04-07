@@ -6,6 +6,7 @@
         Link
     } from "react-router-dom";
     import NoteGrid from "./NoteGrid";
+    import T2VForm from "./T2VForm";
 
     export default function MyApp() {
       return (
@@ -36,7 +37,7 @@
                         </Box>
                         <Flex direction="row" gapX="3">
                             <Link to="/" weight="medium">Composer</Link>
-                            <Link to="/t2s" weight="medium">Text to speech</Link>
+                            <Link to="/t2s" weight="medium">Text to Voice</Link>
                             <Link to="/playFromFile" weight="medium">Play from file</Link>
                         </Flex>
                     </Flex>
@@ -62,8 +63,11 @@
 
     const Composer = () => (
         <main>
-            <Container size="4" mb="5">
-                <Heading as="h1" size="8">Composer</Heading>
+            <Container size="4">
+                <Heading as="h1" size="8" mb="3">Composer</Heading>
+                <Text>
+                    The composer allows users to create musical compositions by selecting notes, octaves, and specifying their duration. It presents a grid of buttons representing different notes and octaves. Users can click on these buttons to add musical elements to their composition. The composition can then be submitted for playback.
+                </Text>
             </Container>
 
             <Container>
@@ -106,18 +110,15 @@
         </main>
     )
 
-    async function submitTextToSpeech() {
-        const ttsInput = document.getElementById("tts-input");
-        console.log(ttsInput.value);
-    }
-
     const T2S = () => (
         <main>
             <Container size="4" mb="5">
                 <Heading as="h1" size="8">Text to speech</Heading>
             </Container>
 
-            <input type="text" id="tts-input" />
-            <Button onClick={ () => submitTextToSpeech() }>Say it</Button>
+            <Container>
+                <T2VForm/>
+            </Container>
+
         </main>
     )
