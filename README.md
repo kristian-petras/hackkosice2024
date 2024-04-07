@@ -43,20 +43,20 @@ We learned a lot about physics behing audio and how the sound waves can be creat
 #What's next for Kompót
 We are prepared to improve ourselves.
 
-Built With
+#uilt With
 c,platformio,python,react
 
 
 ![image](.template_images/Mid.png)
 
 
-## Other Project repositories
+<!--## Other Project repositories-->
 
 <!--
 If your project is constructed out of multiple Repositories, you can specify them here:
 -->
 
-## Documentation
+<!--## Documentation-->
 
 <!--
 Documentation is a crucial part of every project, but also maybe during the hackathon, you did not have time to create it. We recommend coming back later and filling in this part, for example, with https://docs.github.com/en/communities/documenting-your-project-with-wikis/about-wikis
@@ -65,7 +65,11 @@ Documentation is a crucial part of every project, but also maybe during the hack
 
 ## Contributors ✨
 
-Thanks go to these wonderful people
+Thanks go to these wonderful people : 
+Eduard Hopfer,
+Kristián Petráš,
+Peter Grocký,
+Simon Soroka
 <!--
 Here, you can show off all your cool teammates with whom you created this project.
 If you want to automate it, you can use a cool bot: https://allcontributors.org/
