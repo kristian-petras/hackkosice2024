@@ -58,7 +58,7 @@ If your project is constructed out of multiple Repositories, you can specify the
 
 ## Documentation
 
-![image](diagrams/Pipeline_DataStructure.png)
+![image](diagrams/Pipeline_DataStructure_noBorder.png)
 
 <!--
 Documentation is a crucial part of every project, but also maybe during the hackathon, you did not have time to create it. We recommend coming back later and filling in this part, for example, with https://docs.github.com/en/communities/documenting-your-project-with-wikis/about-wikis
