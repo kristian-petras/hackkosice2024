@@ -64,6 +64,9 @@ If your project is constructed out of multiple Repositories, you can specify the
 Documentation is a crucial part of every project, but also maybe during the hackathon, you did not have time to create it. We recommend coming back later and filling in this part, for example, with https://docs.github.com/en/communities/documenting-your-project-with-wikis/about-wikis
 -->
 
+![image](images/composer.png)
+![image](images/text_to_voice.png)
+![image](images/play_from_file.png)
 
 ## Contributors ✨
 

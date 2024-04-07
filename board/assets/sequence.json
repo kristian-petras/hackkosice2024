@@ -1,0 +1,32 @@
+[
+  {
+    "className": "C-4-gray-250",
+    "id": "C-4",
+    "duration": [25]
+  },
+  {
+    "className": "D-4-bronze-670",
+    "id": "D-4",
+    "duration": [67]
+  },
+  {
+    "className": "E-4-yellow-1000",
+    "id": "E-4",
+    "duration": [100]
+  },
+  {
+    "className": "F-4-amber-10",
+    "id": "F-4",
+    "duration": [1]
+  },
+  {
+    "className": "G-4-tomato-190",
+    "id": "G-4",
+    "duration": [19]
+  },
+  {
+    "className": "A-4-ruby-510",
+    "id": "A-4",
+    "duration": [51]
+  }
+]
