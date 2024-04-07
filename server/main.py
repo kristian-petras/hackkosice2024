@@ -11,13 +11,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi import Request
 from wav import extract_frequencies
 import time
-import json
-
-class EnhancedJSONEncoder(json.JSONEncoder):
-        def default(self, o):
-            if dataclasses.is_dataclass(o):
-                return dataclasses.asdict(o)
-            return super().default(o)
 
 # TODO: we convert the float frequencies into ints anyway, we can save resources by having them as ints even here
 NOTES = {
@@ -64,12 +57,6 @@ class PointModel(BaseModel):
 @dataclass
 class CompositionModel(BaseModel):
     points: List[PointModel]
-
-def serializeComposition(composition):
-    filename = f"compositions/composition-{time.time()}.json"
-
-    with open(filename, 'w+') as f:
-        f.write(json.dumps(composition, cls=EnhancedJSONEncoder))
 
 # ser = serial.Serial('/dev/cu.usbmodem21203', 115200)
 # ser = serial.Serial('/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_0670FF485251667187121236-if02', 9600)
@@ -128,8 +115,6 @@ def pointFromModel(model: PointModel) -> SoundPoint:
 @app.post("/playComposition/")
 async def play_composition(composition: CompositionModel):
     parsed = list(map(pointFromModel, composition.points))
-    # print(json.dumps(parsed, cls=EnhancedJSONEncoder))
-    serializeComposition(composition)
 
     freqs = [(x.sound.frequency, x.sound.duration) for x in parsed]
 
@@ -154,7 +139,13 @@ async def create_upload_file(file: UploadFile | None = None):
 @app.post("/say_text/")
 async def say_text(req: Request):
     textBytes = await req.body()
-    writeCommand(CommandType.TextToSpeech, 1, textBytes)
+
+    ser.write(int(CommandType.TextToSpeech).to_bytes())
+    ser.write((1).to_bytes(2))
+    ser.write(len(textBytes).to_bytes(4))
+
+    ser.write(textBytes)
+    # writeCommand(CommandType.TextToSpeech, 1, textBytes)
 
 if __name__ == "__main__":
     uvicorn.run(app)
