@@ -88,7 +88,7 @@
 
     const PlayFromFile = () => (
         <main>
-            <Container size="3">
+            <Container size="4">
                 <Heading as="h1" size="8" mb="3">Play from file</Heading>
                 <Flex direction="column" gapY="3">
                     <Text>
@@ -96,7 +96,7 @@
                     </Text>
                 </Flex>
             </Container>
-            <Container size="3">
+            <Container size="4">
                 <PlayerInput/>
             </Container>
         </main>
