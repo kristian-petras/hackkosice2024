@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="21a5e67a-8db7-4b23-bc1d-fbeb4599d576" name="Changes" comment="feat: settins page">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="21a5e67a-8db7-4b23-bc1d-fbeb4599d576" name="Changes" comment="feat: settings">
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -73,7 +72,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1712410728241</updated>
-      <workItem from="1712410731171" duration="44741000" />
+      <workItem from="1712410731171" duration="44966000" />
     </task>
     <task id="LOCAL-00001" summary="init: basic web app">
       <created>1712423071382</created>
@@ -250,7 +249,21 @@
       <option name="project" value="LOCAL" />
       <updated>1712481406548</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="feat: settings">
+      <created>1712481763168</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1712481763168</updated>
+    </task>
+    <task id="LOCAL-00027" summary="feat: settings">
+      <created>1712481819336</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1712481819336</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -292,6 +305,7 @@
     <MESSAGE value="fix: stretch" />
     <MESSAGE value="feat: title icons" />
     <MESSAGE value="feat: settins page" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: settins page" />
+    <MESSAGE value="feat: settings" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: settings" />
   </component>
 </project>

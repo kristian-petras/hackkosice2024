@@ -94,7 +94,7 @@
                 <Heading as="h1" size="8" mb="3">Device 🛠️</Heading>
                 <Flex direction="column" gapY="3">
                     <Text>
-                        Lorem ipsum...
+                        Make your device truly your own by customizing settings according to your preferences. From communication parameters to display settings, you have the freedom to fine-tune every aspect of your device to suit your unique needs.
                     </Text>
                 </Flex>
             </Container>
