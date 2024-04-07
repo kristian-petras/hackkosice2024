@@ -1,4 +1,4 @@
-    import {Button, Container, Box, Flex, Heading, Text, Card, Link, Grid} from '@radix-ui/themes';
+    import {Button, Container, Box, Flex, Heading, Text, Card, Link, TextField} from '@radix-ui/themes';
     import {
         BrowserRouter as Router,
         Routes,
@@ -99,9 +99,35 @@
                 </Flex>
             </Container>
             <Container size="4">
-                <Card mt="3">
+                <Box mt="3">
+                    <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+                        <Card style={{ width: "49%" }} pt="3" pb="4">
+                            <Flex direction="column" gapY="3">
+                                <Box>
+                                    <Text>Endpoint</Text>
+                                    <TextField.Root placeholder="http://127.0.0.1:721" value="http://localhost:3000"/>
+                                </Box>
+                                <Box>
+                                    <Text>Baudrate</Text>
+                                    <TextField.Root placeholder="115200" value="115200"/>
+                                </Box>
+                                <Box>
+                                    <Text>Port</Text>
+                                    <TextField.Root placeholder="/dev/cu.usbmodem21203" value="/dev/cu.usbmodem21203"/>
+                                </Box>
+                                <Box>
+                                    <Button mt="3" mb="3">Save</Button>
+                                </Box>
+                            </Flex>
+                        </Card>
+                        <Card style={{ width: "49%" }}>
+                            <Flex direction="column">
 
-                </Card>
+                            </Flex>
+                        </Card>
+                    </div>
+                </Box>
+
             </Container>
         </main>
     )
