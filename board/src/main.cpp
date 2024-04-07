@@ -11,21 +11,42 @@
 
 #define BUFFER_SIZE 1024
 #define MESSAGE_SIZE 4
+#define SEGMENT_COUNT 4
+#define DEFAULT_CHARACTER 26
 
-ShiftDisplay2 display = get_display();
-
-void display_demo(ShiftDisplay2 display) {
-    for (int i = 3; i > 0; i--) {
-        // store number and show it for 400ms
-        display.set(i, ALIGN_CENTER);
-        display.show(400);
-        // add dot to stored number and show it for 400ms
-        display.changeDot(1);
-        display.show(400);
+#define SAY_CHARACTER(expression) \
+    switch (expression) { \
+    case 'A': voice.sayQ(spa_A); break; \
+    case 'B': voice.sayQ(spa_B); break; \
+    case 'C': voice.sayQ(spa_C); break; \
+    case 'D': voice.sayQ(spa_D); break; \
+    case 'E': voice.sayQ(spa_E); break; \
+    case 'F': voice.sayQ(spa_F); break; \
+    case 'G': voice.sayQ(spa_G); break; \
+    case 'H': voice.sayQ(spa_H); break; \
+    case 'I': voice.sayQ(spa_I); break; \
+    case 'J': voice.sayQ(spa_J); break; \
+    case 'K': voice.sayQ(spa_K); break; \
+    case 'L': voice.sayQ(spa_L); break; \
+    case 'M': voice.sayQ(spa_M); break; \
+    case 'N': voice.sayQ(spa_N); break; \
+    case 'O': voice.sayQ(spa_O); break; \
+    case 'P': voice.sayQ(spa_P); break; \
+    case 'Q': voice.sayQ(spa_Q); break; \
+    case 'R': voice.sayQ(spa_R); break; \
+    case 'S': voice.sayQ(spa_S); break; \
+    case 'T': voice.sayQ(spa_T); break; \
+    case 'U': voice.sayQ(spa_U); break; \
+    case 'V': voice.sayQ(spa_V); break; \
+    case 'W': voice.sayQ(spa_W); break; \
+    case 'X': voice.sayQ(spa_X); break; \
+    case 'Y': voice.sayQ(spa_Y); break; \
+    case 'Z': voice.sayQ(spa_Z); break; \
+    default: Serial.println("Character not supported."); break; \
     }
-    display.set("HOGI"); // store "GO"
-}
 
+Talkie voice(true, false);
+ShiftDisplay2 display = get_display();
 
 void setup() {
     Serial.begin(115200);
@@ -33,14 +54,17 @@ void setup() {
     init_led();
     init_button();
     init_buzzer();
-    display_demo(display);
 }
 
 uint16_t frequencies[BUFFER_SIZE];
 uint16_t durations[BUFFER_SIZE];
-Talkie voice;
 
-int mode = 0;
+DebounceEvent* button_1 = get_button(0);
+DebounceEvent* button_2 = get_button(1);
+DebounceEvent* button_3 = get_button(2);
+
+char display_data[SEGMENT_COUNT + 1] = { ' ', ' ', ' ', ' ', '\0' };
+int selected_character_index = 0;
 
 void play_sound(uint16_t unitNoteDuration, uint16_t size) {
     Serial.printf("Playing sound with delay %d and size %d\n", unitNoteDuration, size);
@@ -51,6 +75,37 @@ void play_sound(uint16_t unitNoteDuration, uint16_t size) {
     }
 
     play(frequencies, durations, size, unitNoteDuration);
+}
+
+char get_character(int value) {
+    if (value >= 0 && value <= 25) {
+        return 'A' + value;
+    }
+    else if (value == 26) {
+        return ' ';
+    }
+    else {
+        return '-'; // Invalid value
+    }
+}
+
+int selected_character = DEFAULT_CHARACTER;
+
+int cycle_counter(bool increment, int counter, int start, int end) {
+    int c = counter;
+    if (increment) {
+        c++;
+        if (c > end) {
+            c = start;
+        }
+    }
+    else {
+        c--;
+        if (c < start) {
+            c = end;
+        }
+    }
+    return c;
 }
 
 void loop() {
@@ -65,57 +120,31 @@ void loop() {
         }
     }
     else {
-
-    }
-
-    /*     // waiting for command
-        Serial.println("Waiting for command...");
-        uint32_t command = read_command();
-        Serial.printf("Received command: %d\n", command);
-        Serial.printf("Size of file: %d\n", command);
-
-        for (int i = 0; i < command; i++) {
-            Serial.printf("Received data (%d/%d):\n", i, command);
-            read_data(frequencies, durations, i * MESSAGE_SIZE, MESSAGE_SIZE);
+        if (is_button_pressed(button_1)) {
+            selected_character = cycle_counter(false, selected_character, 0, 26);
+            display_data[selected_character_index] = get_character(selected_character);
         }
-
-        while (true)
-        {
-            play(frequencies, durations, command);
-            delay(1000);
+        else if (is_button_pressed(button_2)) {
+            selected_character = cycle_counter(true, selected_character, 0, 26);
+            display_data[selected_character_index] = get_character(selected_character);
         }
-
-        //Part of code, that has emotional damage when called from any other place
-        const char* message = "PETO EDO SIMON TINO";
-        for (int i = 0; message[i] != '\0'; i++) {
-            switch (message[i]) {
-            case 'A': voice.say(spa_A); break;
-            case 'B': voice.say(spa_B); break;
-            case 'C': voice.say(spa_C); break;
-            case 'D': voice.say(spa_D); break;
-            case 'E': voice.say(spa_E); break;
-            case 'F': voice.say(spa_F); break;
-            case 'G': voice.say(spa_G); break;
-            case 'H': voice.say(spa_H); break;
-            case 'I': voice.say(spa_I); break;
-            case 'J': voice.say(spa_J); break;
-            case 'K': voice.say(spa_K); break;
-            case 'L': voice.say(spa_L); break;
-            case 'M': voice.say(spa_M); break;
-            case 'N': voice.say(spa_N); break;
-            case 'O': voice.say(spa_O); break;
-            case 'P': voice.say(spa_P); break;
-            case 'Q': voice.say(spa_Q); break;
-            case 'R': voice.say(spa_R); break;
-            case 'S': voice.say(spa_S); break;
-            case 'T': voice.say(spa_T); break;
-            case 'U': voice.say(spa_U); break;
-            case 'V': voice.say(spa_V); break;
-            case 'W': voice.say(spa_W); break;
-            case 'X': voice.say(spa_X); break;
-            case 'Y': voice.say(spa_Y); break;
-            case 'Z': voice.say(spa_Z); break;
-            default: Serial.println("Character not supported."); break;
+        else if (is_button_pressed(button_3)) {
+            // if last character, say it and reset
+            if (selected_character_index == SEGMENT_COUNT - 1) {
+                display.show(1000);
+                for (int i = 0; i < SEGMENT_COUNT; i++) {
+                    SAY_CHARACTER(display_data[i]);
+                    display_data[i] = ' ';
+                    display.set(display_data);
+                    display.show(1000);
+                }
             }
-        } */
+            // cycle index to next character
+            selected_character_index = (selected_character_index + 1) % SEGMENT_COUNT;
+            selected_character = DEFAULT_CHARACTER;
+        }
+        display.set(display_data);
+        display.show();
+    }
 }
+
