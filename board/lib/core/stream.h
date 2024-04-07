@@ -3,7 +3,7 @@
 
 #include <Arduino.h>
 
-void read_data(uint16_t* frequencies, uint16_t* durations, uint16_t start, uint16_t count);
+void read_data(uint16_t* frequencies, uint16_t* durations, uint16_t index, uint16_t count);
 uint32_t read_command();
 
 #endif // STREAM_H

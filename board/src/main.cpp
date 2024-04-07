@@ -48,8 +48,8 @@ void loop() {
     Serial.printf("Size of file: %d\n", command);
 
     for (int i = 0; i < command; i++) {
-        Serial.printf("Received data (%d/%d):\n", i, command);
-        read_data(frequencies, durations, i * MESSAGE_SIZE, MESSAGE_SIZE);
+        read_data(frequencies, durations, i, MESSAGE_SIZE);
+        Serial.printf("Received data (%d/%d):(%d - %d)\n", i + 1, command, frequencies[i], durations[i]);
     }
 
     while (true)

@@ -16,18 +16,16 @@ uint32_t read_command() {
     return 0;
 }
 
-void read_data(uint16_t* frequencies, uint16_t* durations, uint16_t start, uint16_t count) {
+void read_data(uint16_t* frequencies, uint16_t* durations, uint16_t index, uint16_t count) {
     while (true)
     {
-        if (Serial.available() >= count * 4) {
-            for (size_t i = 0; i < count; i++) {
-                uint32_t first_frequency = Serial.read();
-                uint32_t second_frequency = Serial.read();
-                uint32_t first_duration = Serial.read();
-                uint32_t second_duration = Serial.read();
-                frequencies[i + start] = second_frequency | (first_frequency << 8);
-                durations[i + start] = second_duration | (first_duration << 8);
-            }
+        if (Serial.available() >= count) {
+            uint32_t first_frequency = Serial.read();
+            uint32_t second_frequency = Serial.read();
+            uint32_t first_duration = Serial.read();
+            uint32_t second_duration = Serial.read();
+            frequencies[index] = second_frequency | (first_frequency << 8);
+            durations[index] = second_duration | (first_duration << 8);
             return;
         }
     }

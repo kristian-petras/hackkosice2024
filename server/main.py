@@ -9,6 +9,7 @@ from typing import List
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import Request
 from wav import extract_frequencies
+import time
 
 # TODO: we convert the float frequencies into ints anyway, we can save resources by having them as ints even here
 NOTES = {
@@ -26,6 +27,11 @@ NOTES = {
     "B": [ 30.87, 61.74, 123.47, 246.94, 493.88, 987.77, 1975.53, 3951, 7902.13, ],
 }
 
+CHUNK_SIZE = 16 * 4
+
+class CommandType(Enum):
+    FreqsFromSerial = 0
+    TextToSpeech = 1
 
 class Instrument(Enum):
     Piano = 0
@@ -111,10 +117,22 @@ async def create_upload_file(file: UploadFile | None = None):
 
     byteS = freqsToBytes(freqs)
     command = (len(byteS)//4).to_bytes(4)
-    print(command)
-    print(byteS)
+
+    print(freqs)
+
     ser.write(command)
-    ser.write(byteS)
+
+    i = 0
+    while True:
+        ser.write(byteS[i:i+CHUNK_SIZE])
+        time.sleep(0.1)
+        if len(byteS) - i >= CHUNK_SIZE:
+            i += CHUNK_SIZE
+        else:
+            break
+
+    if i < len(byteS):
+        ser.write(byteS[i:])        
 
     return { "filename": file.filename }
 
