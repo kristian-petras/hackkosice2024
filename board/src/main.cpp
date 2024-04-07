@@ -38,57 +38,80 @@ void setup() {
 
 uint16_t frequencies[BUFFER_SIZE];
 uint16_t durations[BUFFER_SIZE];
+Talkie voice;
+
+int mode = 0;
+
+void play_sound(uint16_t delay, uint16_t size) {
+    Serial.printf("Playing sound with delay %d and size %d\n", delay, size);
+
+    for (int i = 0; i < size; i++) {
+        read_data(frequencies, durations, i, MESSAGE_SIZE);
+        Serial.printf("Received data (%d/%d):(%d - %d)\n", i + 1, size, frequencies[i], durations[i]);
+    }
+
+    play(frequencies, durations, size);
+}
 
 void loop() {
-    Talkie voice;
-    // waiting for command
-    Serial.println("Waiting for command...");
-    uint32_t command = read_command();
-    Serial.printf("Received command: %d\n", command);
-    Serial.printf("Size of file: %d\n", command);
-
-    for (int i = 0; i < command; i++) {
-        read_data(frequencies, durations, i, MESSAGE_SIZE);
-        Serial.printf("Received data (%d/%d):(%d - %d)\n", i + 1, command, frequencies[i], durations[i]);
-    }
-
-    while (true)
-    {
-        play(frequencies, durations, command);
-        delay(1000);
-    }
-
-    //Part of code, that has emotional damage when called from any other place
-    const char* message = "PETO EDO SIMON TINO";
-    for (int i = 0; message[i] != '\0'; i++) {
-        switch (message[i]) {
-        case 'A': voice.say(spa_A); break;
-        case 'B': voice.say(spa_B); break;
-        case 'C': voice.say(spa_C); break;
-        case 'D': voice.say(spa_D); break;
-        case 'E': voice.say(spa_E); break;
-        case 'F': voice.say(spa_F); break;
-        case 'G': voice.say(spa_G); break;
-        case 'H': voice.say(spa_H); break;
-        case 'I': voice.say(spa_I); break;
-        case 'J': voice.say(spa_J); break;
-        case 'K': voice.say(spa_K); break;
-        case 'L': voice.say(spa_L); break;
-        case 'M': voice.say(spa_M); break;
-        case 'N': voice.say(spa_N); break;
-        case 'O': voice.say(spa_O); break;
-        case 'P': voice.say(spa_P); break;
-        case 'Q': voice.say(spa_Q); break;
-        case 'R': voice.say(spa_R); break;
-        case 'S': voice.say(spa_S); break;
-        case 'T': voice.say(spa_T); break;
-        case 'U': voice.say(spa_U); break;
-        case 'V': voice.say(spa_V); break;
-        case 'W': voice.say(spa_W); break;
-        case 'X': voice.say(spa_X); break;
-        case 'Y': voice.say(spa_Y); break;
-        case 'Z': voice.say(spa_Z); break;
-        default: Serial.println("Character not supported."); break;
+    if (check_command()) {
+        uint32_t command = read_command();
+        if (command == 0) {
+            play_sound(0, command); // add size and delay to protocol
         }
     }
+    else {
+
+    }
+
+    /*     // waiting for command
+        Serial.println("Waiting for command...");
+        uint32_t command = read_command();
+        Serial.printf("Received command: %d\n", command);
+        Serial.printf("Size of file: %d\n", command);
+
+        for (int i = 0; i < command; i++) {
+            Serial.printf("Received data (%d/%d):\n", i, command);
+            read_data(frequencies, durations, i * MESSAGE_SIZE, MESSAGE_SIZE);
+        }
+
+        while (true)
+        {
+            play(frequencies, durations, command);
+            delay(1000);
+        }
+
+        //Part of code, that has emotional damage when called from any other place
+        const char* message = "PETO EDO SIMON TINO";
+        for (int i = 0; message[i] != '\0'; i++) {
+            switch (message[i]) {
+            case 'A': voice.say(spa_A); break;
+            case 'B': voice.say(spa_B); break;
+            case 'C': voice.say(spa_C); break;
+            case 'D': voice.say(spa_D); break;
+            case 'E': voice.say(spa_E); break;
+            case 'F': voice.say(spa_F); break;
+            case 'G': voice.say(spa_G); break;
+            case 'H': voice.say(spa_H); break;
+            case 'I': voice.say(spa_I); break;
+            case 'J': voice.say(spa_J); break;
+            case 'K': voice.say(spa_K); break;
+            case 'L': voice.say(spa_L); break;
+            case 'M': voice.say(spa_M); break;
+            case 'N': voice.say(spa_N); break;
+            case 'O': voice.say(spa_O); break;
+            case 'P': voice.say(spa_P); break;
+            case 'Q': voice.say(spa_Q); break;
+            case 'R': voice.say(spa_R); break;
+            case 'S': voice.say(spa_S); break;
+            case 'T': voice.say(spa_T); break;
+            case 'U': voice.say(spa_U); break;
+            case 'V': voice.say(spa_V); break;
+            case 'W': voice.say(spa_W); break;
+            case 'X': voice.say(spa_X); break;
+            case 'Y': voice.say(spa_Y); break;
+            case 'Z': voice.say(spa_Z); break;
+            default: Serial.println("Character not supported."); break;
+            }
+        } */
 }
